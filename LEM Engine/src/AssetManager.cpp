@@ -41,7 +41,8 @@ bool AssetManager::init()
 	{
 		//Load data
 		printf("Reading file...!\n");
-		for (int i = 0; i < _spriteFilenames.size(); i++)
+		int fileCount = _spriteFilenames.size();
+		for (int i = 0; i < fileCount; i++)
 		{
 			SDL_RWread(file, &_spriteFilenames[i], sizeof(std::string), 1);
 		}

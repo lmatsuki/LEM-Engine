@@ -1,11 +1,15 @@
 #pragma once
 
 #include <iostream>
+#include <memory>
+#include <stack>
 #include <SDL.h>
 
 #include "Input.h"
 #include "Graphics.h"
 #include "AssetManager.h"
+
+class GameState;
 
 class Game
 {
@@ -20,12 +24,21 @@ public:
 	bool isRunning();
 	void run();
 
+	// GameState methods
+	void pushState(std::unique_ptr<GameState> state);
+	void popState();
+	void changeState(std::unique_ptr<GameState> state);
+	std::unique_ptr<GameState> peekState();
+
+
 private:
-	// class properties
+	// Properties
 	bool _running;
+	std::stack<std::unique_ptr<GameState>> _states;
 
 	// engine parts
-	Input inputEngine;
-	Graphics graphicsEngine;
-	AssetManager assetManagerEngine;
+	Input _inputEngine;
+	Graphics _graphicsEngine;
+	AssetManager _assetManagerEngine;
+
 };

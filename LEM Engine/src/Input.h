@@ -11,7 +11,9 @@ public:
 
 	void update();
 	bool exitScene();
+	std::string getInputText();
 
 private:
 	bool _pendingExit;
+	std::string _inputText;
 };
