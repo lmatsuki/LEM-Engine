@@ -28,7 +28,7 @@ public:
 	void pushState(std::unique_ptr<GameState> state);
 	void popState();
 	void changeState(std::unique_ptr<GameState> state);
-	std::unique_ptr<GameState> peekState();
+	GameState* peekState();
 
 
 private:

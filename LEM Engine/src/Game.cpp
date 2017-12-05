@@ -30,6 +30,12 @@ int Game::init()
 		return 3;
 	}
 
+	// Add the Editor GameState to the game
+	//std::shared_ptr<Game> gameSharedPtr = shared_from_this();
+	//std::weak_ptr<Game> gameWeakPtr = std::weak_ptr<Game>(gameSharedPtr);
+	//std::unique_ptr<GameState> editorGameState = std::make_unique<GameStateEditor>(gameWeakPtr);
+	//pushState(std::move(editorGameState));
+
 	std::cout << "Success!" << std::endl;
 	_running = true;
 	return 0;
@@ -54,6 +60,7 @@ void Game::run()
 	{
 		// TO DO... Implement clock 
 
+		//if (this->_states.empty())
 		if (peekState() == nullptr)
 			continue;
 
@@ -97,9 +104,9 @@ void Game::changeState(std::unique_ptr<GameState> state)
 	pushState(std::move(state));
 }
 
-std::unique_ptr<GameState> Game::peekState()
+GameState* Game::peekState()
 {
 	if (this->_states.empty())
 		return nullptr;
-	return std::move(this->_states.top());
+	return this->_states.top().get();
 }
