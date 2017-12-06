@@ -1,6 +1,6 @@
 #include "Input.h"
 
-Input::Input() : _pendingExit(false), _inputText("")
+Input::Input() : _pendingExit(false), _inputText(""), _displayInputText(false)
 {
 
 }
@@ -62,4 +62,27 @@ bool Input::exitScene()
 std::string Input::getInputText()
 {
 	return _inputText;
+}
+
+void Input::toggleInputState(const bool toggle)
+{
+	if (toggle)
+		SDL_StartTextInput();
+	else
+		SDL_StopTextInput();
+}
+
+void Input::clearInputText()
+{
+	_inputText = "";
+}
+
+void Input::toggleDisplayInputText(const bool toggle)
+{
+	_displayInputText = toggle;
+}
+
+bool Input::getInputTextEnabled()
+{
+	return _displayInputText;
 }

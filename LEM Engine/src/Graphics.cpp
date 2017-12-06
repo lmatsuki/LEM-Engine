@@ -66,6 +66,32 @@ bool Graphics::init()
 	return true;
 }
 
+bool Graphics::loadImage(std::string path)
+{
+	//Load image at specified path
+	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
+	if (loadedSurface == NULL)
+	{
+		std::cout << "Unable to load image %s! SDL_image Error: " << path.c_str() << IMG_GetError() << std::endl;
+		return false;
+	}
+	else
+	{
+		//Create texture from surface pixels
+		gTexture = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);
+		if (gTexture == NULL)
+		{
+			std::cout << "Unable to create texture from: " << path.c_str() << SDL_GetError() << std::endl;
+			return false;
+		}
+
+		//Get rid of old loaded surface
+		SDL_FreeSurface(loadedSurface);
+	}
+
+	return true;
+}
+
 bool Graphics::load()
 {
 	//Load image at specified path
@@ -138,19 +164,13 @@ int Graphics::getTextHeight()
 	return _textHeight;
 }
 
-void Graphics::render(std::string inputText)
+void Graphics::render()
 {
 	//Clear screen
 	SDL_RenderClear(gRenderer);
 
 	//Render texture to screen
 	SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
-
-	// Render text
-	renderText(inputText);
-
-	//Update screen
-	SDL_RenderPresent(gRenderer);
 }
 
 void Graphics::renderText(std::string inputText, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip)
@@ -180,6 +200,11 @@ void Graphics::renderText(std::string inputText, SDL_Rect* clip, double angle, S
 
 	//Render to screen
 	SDL_RenderCopyEx(gRenderer, gInputTextTexture, clip, &renderQuad, angle, center, flip);
+}
+
+void Graphics::updateScreen()
+{
+	SDL_RenderPresent(gRenderer);
 }
 
 void Graphics::unload()

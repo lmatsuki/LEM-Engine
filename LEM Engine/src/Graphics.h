@@ -15,6 +15,7 @@ public:
 	bool init();
 
 	// Load the resources
+	bool loadImage(std::string path);
 	bool load();	
 
 	// Load from rendered text
@@ -25,10 +26,13 @@ public:
 	int getTextHeight();
 
 	// This is called each frame
-	void render(std::string inputText = "");
+	void render();
 
 	// This shows debug text
 	void renderText(std::string inputText, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE);
+
+	// Updates the screen with current surface/textures
+	void updateScreen();
 
 	// Remove all resources
 	void unload();

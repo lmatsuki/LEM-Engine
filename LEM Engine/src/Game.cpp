@@ -30,13 +30,7 @@ int Game::init()
 		return 3;
 	}
 
-	// Add the Editor GameState to the game
-	//std::shared_ptr<Game> gameSharedPtr = shared_from_this();
-	//std::weak_ptr<Game> gameWeakPtr = std::weak_ptr<Game>(gameSharedPtr);
-	//std::unique_ptr<GameState> editorGameState = std::make_unique<GameStateEditor>(gameWeakPtr);
-	//pushState(std::move(editorGameState));
-
-	std::cout << "Success!" << std::endl;
+	std::cout << "SDL initialized!" << std::endl;
 	_running = true;
 	return 0;
 }
@@ -60,27 +54,30 @@ void Game::run()
 	{
 		// TO DO... Implement clock 
 
-		//if (this->_states.empty())
+
 		if (peekState() == nullptr)
 			continue;
 
+		if (_inputEngine.exitScene())
+		{
+			_running = false;
+			return;
+		}
+
+		// Process input
+		_inputEngine.update();
 		peekState()->handleInput();
+		
+		// Process logic
 		peekState()->update();
+
+		// Render graphics
+		_graphicsEngine.render();
 		peekState()->render();
+		if (_inputEngine.getInputTextEnabled())
+			_graphicsEngine.renderText(_inputEngine.getInputText());
+		_graphicsEngine.updateScreen();
 	}
-
-
-	// Process input
-	//_inputEngine.update();
-	//if (_inputEngine.exitScene())
-	//	_running = false;
-
-	//// Process logic
-
-
-	//// Update graphics
-	//_graphicsEngine.render(_inputEngine.getInputText());
-
 
 	// Temporarily shutdown to avoid dr.memory lockup
 	//_running = false;
@@ -109,4 +106,9 @@ GameState* Game::peekState()
 	if (this->_states.empty())
 		return nullptr;
 	return this->_states.top().get();
+}
+
+bool Game::loadImage(std::string path)
+{
+	return _graphicsEngine.loadImage(path);
 }

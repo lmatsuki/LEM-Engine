@@ -30,6 +30,12 @@ public:
 	void changeState(std::unique_ptr<GameState> state);
 	GameState* peekState();
 
+	/********* Engine calls *********/
+	// Graphics Engine
+	bool loadImage(std::string path);
+
+	// Input Engine
+	
 
 private:
 	// Properties
