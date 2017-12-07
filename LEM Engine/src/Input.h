@@ -15,11 +15,18 @@ public:
 	void toggleInputState(const bool toggle = false);
 	void clearInputText();
 
+	bool getDisplayInputText();
 	void toggleDisplayInputText(const bool toggle = false);
-	bool getInputTextEnabled();
+
+	bool getInputFinished();
+	void setInputFinished(const bool finished);
+	bool getInputChanged();
+	void setInputChanged(const bool changed);
 
 private:
 	bool _pendingExit;
 	std::string _inputText;
 	bool _displayInputText;
+	bool _inputFinished;
+	bool _inputChanged;
 };

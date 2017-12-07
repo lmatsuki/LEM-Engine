@@ -113,6 +113,19 @@ bool Graphics::load()
 		SDL_FreeSurface(loadedSurface);
 	}
 
+	//// Load the font
+	//gFont = TTF_OpenFont("lazy.ttf", 28);
+	//if (gFont == NULL)
+	//{
+	//	std::cout << "Failed to load lazy font! SDL_ttf Error: " << TTF_GetError() << std::endl;
+	//	return false;
+	//}
+
+	return true;
+}
+
+bool Graphics::loadText(std::string inputText)
+{
 	// Load the font
 	gFont = TTF_OpenFont("lazy.ttf", 28);
 	if (gFont == NULL)
@@ -121,11 +134,9 @@ bool Graphics::load()
 		return false;
 	}
 
-	return true;
-}
+	if (inputText == "")
+		inputText = " ";
 
-bool Graphics::loadText(std::string inputText)
-{
 	//Load text texture
 	SDL_Surface* textSurface = TTF_RenderText_Solid(gFont, inputText.c_str(), textColor);
 	if (textSurface != NULL)

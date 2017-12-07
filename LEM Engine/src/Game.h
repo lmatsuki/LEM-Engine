@@ -32,19 +32,23 @@ public:
 
 	/********* Engine calls *********/
 	// Graphics Engine
-	bool loadImage(std::string path);
+	bool loadImage(const std::string path);
+	bool loadText(const std::string inputText);
 
 	// Input Engine
-	
-
-private:
-	// Properties
-	bool _running;
-	std::stack<std::unique_ptr<GameState>> _states;
+	bool finishedInput();
+	bool inputEnabled();
+	bool inputChanged();
+	void setInputChanged(const bool changed);
+	std::string getInputText();
 
 	// engine parts
 	Input _inputEngine;
 	Graphics _graphicsEngine;
 	AssetManager _assetManagerEngine;
 
+private:
+	// Properties
+	bool _running;
+	std::stack<std::unique_ptr<GameState>> _states;
 };

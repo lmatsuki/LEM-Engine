@@ -74,7 +74,7 @@ void Game::run()
 		// Render graphics
 		_graphicsEngine.render();
 		peekState()->render();
-		if (_inputEngine.getInputTextEnabled())
+		if (_inputEngine.getDisplayInputText())
 			_graphicsEngine.renderText(_inputEngine.getInputText());
 		_graphicsEngine.updateScreen();
 	}
@@ -108,7 +108,39 @@ GameState* Game::peekState()
 	return this->_states.top().get();
 }
 
-bool Game::loadImage(std::string path)
+bool Game::loadImage(const std::string path)
 {
 	return _graphicsEngine.loadImage(path);
+}
+
+bool Game::loadText(const std::string inputText)
+{
+	return _graphicsEngine.loadText(inputText);
+}
+
+bool Game::finishedInput()
+{
+	// A new image path has been entered
+	return _inputEngine.getInputFinished();
+}
+
+bool Game::inputEnabled()
+{
+	return _inputEngine.getDisplayInputText();
+}
+
+bool Game::inputChanged()
+{
+	return _inputEngine.getInputChanged();
+}
+
+void Game::setInputChanged(const bool changed)
+{
+	_inputEngine.setInputChanged(changed);
+}
+
+std::string Game::getInputText()
+{
+	_inputEngine.setInputFinished(false);
+	return _inputEngine.getInputText();
 }
