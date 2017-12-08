@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "GameStateEditor.h"
 
+
 int main(int, char**) 
 {
 	// Create the Game shared_ptr
@@ -25,6 +26,11 @@ int main(int, char**)
 	}	
 
 	//std::cin.get();
+
+	
+
+
+
 
 	return 0;
 }

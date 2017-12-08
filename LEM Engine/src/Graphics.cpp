@@ -127,7 +127,7 @@ bool Graphics::load()
 bool Graphics::loadText(std::string inputText)
 {
 	// Load the font
-	gFont = TTF_OpenFont("lazy.ttf", 28);
+	gFont = TTF_OpenFont("Assets/Fonts/Roboto-Medium.ttf", 28);
 	if (gFont == NULL)
 	{
 		std::cout << "Failed to load lazy font! SDL_ttf Error: " << TTF_GetError() << std::endl;
