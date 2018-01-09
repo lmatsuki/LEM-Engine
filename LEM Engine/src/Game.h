@@ -74,7 +74,7 @@ public:
 
 	// engine parts
 	Input _inputEngine;
-	Graphics _graphicsEngine;
+	//Graphics _graphicsEngine;
 	AssetManager _assetManagerEngine;
 
 private:

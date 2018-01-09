@@ -12,7 +12,17 @@ MessageBus::~MessageBus()
 
 void MessageBus::init()
 {
-	_systems.push_back(std::make_unique<Console>(std::shared_ptr<MessageBus>(shared_from_this())));
+	// ********************************************************* //
+	// Control the order of construction and initialization here //
+	// ********************************************************* //
+
+	// Add frameworks to the message bus
+	_frameworks.push_back(std::make_unique<Graphics>(std::shared_ptr<MessageBus>(shared_from_this()), "Graphics"));
+	
+
+	// Add systems to the message bus
+	_systems.push_back(std::make_unique<Console>(std::shared_ptr<MessageBus>(shared_from_this()), "Console"));
+	_systems.push_back(std::make_unique<GUI>(std::shared_ptr<MessageBus>(shared_from_this()), "GUI"));
 
 	// Test message
 	Message msg(MessageType::Console, "Testing console printing.");
@@ -33,4 +43,9 @@ void MessageBus::pollMessages()
 
 	// Delete the messages after processing
 	_messages.clear();
+}
+
+void MessageBus::postMessage(Message message)
+{
+	_messages.push_back(message);
 }

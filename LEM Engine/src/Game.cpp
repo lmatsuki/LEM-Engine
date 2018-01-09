@@ -41,7 +41,7 @@ int Game::init()
 
 void Game::shutdown()
 {
-	_graphicsEngine.unload();
+	//_graphicsEngine.unload();
 
 	std::cout << "Shutting down SDL.." << std::endl;	
 	SDL_Quit();
@@ -135,12 +135,14 @@ GameState* Game::peekState()
 
 bool Game::loadImage(const std::string path)
 {
-	return _graphicsEngine.loadImage(path);
+	//return _graphicsEngine.loadImage(path);
+	return false;
 }
 
 bool Game::loadText(const std::string inputText)
 {
-	return _graphicsEngine.loadText(inputText);
+	//return _graphicsEngine.loadText(inputText);
+	return false;
 }
 
 bool Game::finishedInput()

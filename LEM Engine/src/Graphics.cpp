@@ -1,8 +1,10 @@
 #include "Graphics.h"
 
-Graphics::Graphics() : _screenWidth(800), _screenHeight(600), gWindow(NULL), gRenderer(NULL), gTexture(NULL), gInputTextTexture(NULL),
-	textColor({ 0, 0, 0, 0xFF }), gFont(NULL), _textWidth(0), _textHeight(0)
+Graphics::Graphics(std::shared_ptr<MessageBus> messageBus, std::string frameworkName) : _screenWidth(800), _screenHeight(600), gWindow(NULL), 
+	gRenderer(NULL), gTexture(NULL), gInputTextTexture(NULL), textColor({ 0, 0, 0, 0xFF }), gFont(NULL), _textWidth(0), _textHeight(0),
+	Framework(messageBus, frameworkName)
 {
+	init();
 }
 
 Graphics::~Graphics()
@@ -15,6 +17,11 @@ Graphics::~Graphics()
 
 	TTF_Quit();
 	IMG_Quit();
+}
+
+void Graphics::handleMessages(Message message)
+{
+
 }
 
 bool Graphics::init()

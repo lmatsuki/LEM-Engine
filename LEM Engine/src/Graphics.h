@@ -3,13 +3,17 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
+#include <memory>
 #include <iostream>
+#include "Framework.h"
 
-class Graphics
+class Graphics : public Framework
 {
 public:
-	Graphics();
+	Graphics(std::shared_ptr<MessageBus> messageBus, std::string frameworkName);
 	~Graphics();
+
+	void handleMessages(Message message);
 
 	// Initialize the graphics engine
 	bool init();

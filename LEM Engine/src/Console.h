@@ -6,7 +6,7 @@
 class Console : public System
 {
 public:
-	Console(std::shared_ptr<MessageBus> messageBus);
+	Console(std::shared_ptr<MessageBus> messageBus, std::string systemName);
 	~Console();
 
 	void handleMessages(Message message);

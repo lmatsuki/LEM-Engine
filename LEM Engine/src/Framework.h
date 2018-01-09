@@ -1,20 +1,20 @@
 #pragma once
 
-#include <iostream>
 #include <memory>
+#include <iostream>
 #include "Message.h"
 
 class MessageBus;
 
-class System
+class Framework
 {
 public:
-	System(std::shared_ptr<MessageBus> messageBus, std::string systemName);
-	virtual ~System();
+	Framework(std::shared_ptr<MessageBus> messageBus, std::string frameworkName);
+	~Framework();
 
 	virtual void handleMessages(Message message) = 0;
 
 private:
 	std::weak_ptr<MessageBus> _messageBus;
-	std::string _systemName;
+	std::string _frameworkName;
 };

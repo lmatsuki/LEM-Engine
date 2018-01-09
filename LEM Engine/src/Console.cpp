@@ -1,13 +1,13 @@
 #include "Console.h"
 
-Console::Console(std::shared_ptr<MessageBus> messageBus) : System(messageBus)
+Console::Console(std::shared_ptr<MessageBus> messageBus, std::string systemName) : System(messageBus, systemName)
 {
-	std::cout << "Console system ready." << std::endl;
+	
 }
 
 Console::~Console()
 {
-	std::cout << "Console system shutting down." << std::endl;
+	
 }
 
 void Console::handleMessages(Message message)
