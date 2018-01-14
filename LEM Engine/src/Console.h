@@ -9,5 +9,6 @@ public:
 	Console(std::shared_ptr<MessageBus> messageBus, std::string systemName);
 	~Console();
 
-	void handleMessages(Message message);
+	void handleMessages(std::unique_ptr<Message> & message);
+	void update();
 };

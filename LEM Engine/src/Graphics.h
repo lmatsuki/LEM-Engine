@@ -10,16 +10,25 @@
 class Graphics : public Framework
 {
 public:
-	Graphics(std::shared_ptr<MessageBus> messageBus, std::string frameworkName);
+	Graphics(std::string frameworkName);
 	~Graphics();
-
-	void handleMessages(Message message);
 
 	// Initialize the graphics engine
 	bool init();
 
-	// Load the resources
+	/***************************************************************/
+	/****************** Methods called by Systems ******************/
+	/***************************************************************/
+	bool createWindow();
 	bool loadImage(std::string path);
+
+	// This is called each frame
+	void render();
+
+
+
+	// Load the resources
+	
 	bool load();	
 
 	// Load from rendered text
@@ -29,8 +38,7 @@ public:
 	int getTextWidth();
 	int getTextHeight();
 
-	// This is called each frame
-	void render();
+
 
 	// This shows debug text
 	void renderText(std::string inputText, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE);

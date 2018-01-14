@@ -1,8 +1,8 @@
 #include "Graphics.h"
 
-Graphics::Graphics(std::shared_ptr<MessageBus> messageBus, std::string frameworkName) : _screenWidth(800), _screenHeight(600), gWindow(NULL), 
+Graphics::Graphics(std::string frameworkName) : _screenWidth(800), _screenHeight(600), gWindow(NULL), 
 	gRenderer(NULL), gTexture(NULL), gInputTextTexture(NULL), textColor({ 0, 0, 0, 0xFF }), gFont(NULL), _textWidth(0), _textHeight(0),
-	Framework(messageBus, frameworkName)
+	Framework(frameworkName)
 {
 	init();
 }
@@ -12,16 +12,13 @@ Graphics::~Graphics()
 	//Destroy window   
 	SDL_DestroyRenderer(gRenderer);
 	SDL_DestroyWindow(gWindow);
+	SDL_DestroyTexture(gTexture);
 	gWindow = NULL;
 	gRenderer = NULL;
+	gTexture = NULL;
 
 	TTF_Quit();
 	IMG_Quit();
-}
-
-void Graphics::handleMessages(Message message)
-{
-
 }
 
 bool Graphics::init()
@@ -31,8 +28,13 @@ bool Graphics::init()
 	{
 		std::cout << "SDL_Init Error: " << SDL_GetError() << std::endl;
 		return false;
-	}
+	}	
 
+	return true;
+}
+
+bool Graphics::createWindow()
+{
 	//Create window
 	gWindow = SDL_CreateWindow("LEM Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, _screenWidth, _screenHeight, SDL_WINDOW_SHOWN);
 	if (gWindow == NULL)
@@ -98,6 +100,43 @@ bool Graphics::loadImage(std::string path)
 
 	return true;
 }
+
+void Graphics::render()
+{
+	//Clear screen
+	SDL_RenderClear(gRenderer);
+
+	//Render texture to screen
+	SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
+
+	//Update screen
+	SDL_RenderPresent(gRenderer);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 bool Graphics::load()
 {
@@ -182,14 +221,7 @@ int Graphics::getTextHeight()
 	return _textHeight;
 }
 
-void Graphics::render()
-{
-	//Clear screen
-	SDL_RenderClear(gRenderer);
 
-	//Render texture to screen
-	SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
-}
 
 void Graphics::renderText(std::string inputText, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip)
 {

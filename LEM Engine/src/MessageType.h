@@ -3,4 +3,8 @@
 enum class MessageType
 {
 	Console,
+
+	// GUI System
+	CreateWindow,
+	LoadImage,
 };

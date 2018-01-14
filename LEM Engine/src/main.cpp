@@ -2,6 +2,7 @@
 #include "MessageBus.h"
 #include "Game.h"
 #include "GameStateEditor.h"
+#include "Test.h"
 
 int main(int, char**) 
 {
@@ -25,9 +26,13 @@ int main(int, char**)
 	//	gameSharedPtr->run();
 	//}	
 
+	// To run and verify deeper C++ understanding
+	//Test test;
+	//test.runTests();
+
 	Game game;
-	game.init();
-	game.run();
+	if (game.init())
+		game.run();
 
 
 

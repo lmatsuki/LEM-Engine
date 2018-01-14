@@ -11,11 +11,12 @@ Game::~Game()
 	//shutdown();
 }
 
-int Game::init()
+bool Game::init()
 {
 	// Initialize message bus
 	_messageBus = std::make_shared<MessageBus>();
-	_messageBus->init();
+	if (!_messageBus->init())
+		return false;
 
 	// Initialize engine components
 	//std::cout << "Initializing SDL.." << std::endl;
@@ -36,7 +37,7 @@ int Game::init()
 
 	//std::cout << "SDL initialized!" << std::endl;
 	//_running = true;
-	return 0;
+	return true;
 }
 
 void Game::shutdown()
@@ -57,6 +58,7 @@ void Game::run()
 	while (_running)
 	{
 		_messageBus->pollMessages();
+		_messageBus->updateSystems();
 
 		// TO DO... Implement clock 		
 
@@ -91,21 +93,6 @@ void Game::run()
 
 	// Temporarily shutdown to avoid dr.memory lockup
 	//_running = false;
-}
-
-void Game::test()
-{
-	std::shared_ptr<Mothership> pMothership = std::make_shared<Mothership>("Mothership");
-	std::unique_ptr<Aircraft> pAircraft = std::make_unique<Aircraft>("Aircraft");
-	std::unique_ptr<Aircraft> pAircraft2 = std::make_unique<Aircraft>("Aircraft2");
-	std::unique_ptr<Aircraft> pAircraft3 = std::make_unique<Aircraft>("Aircraft3");
-
-	pAircraft->setParent(pMothership);
-	pAircraft2->setParent(pMothership);
-	pAircraft3->setParent(pMothership);
-	pMothership->setChild(std::move(pAircraft));
-	pMothership->setChild(std::move(pAircraft2));
-	pMothership->setChild(std::move(pAircraft3));
 }
 
 void Game::pushState(std::unique_ptr<GameState> state)

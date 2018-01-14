@@ -3,18 +3,17 @@
 #include <memory>
 #include <iostream>
 #include "Message.h"
+#include "Exception.h"
 
 class MessageBus;
 
 class Framework
 {
 public:
-	Framework(std::shared_ptr<MessageBus> messageBus, std::string frameworkName);
-	~Framework();
-
-	virtual void handleMessages(Message message) = 0;
+	Framework(std::string frameworkName);
+	virtual ~Framework();
 
 private:
-	std::weak_ptr<MessageBus> _messageBus;
+	//std::weak_ptr<MessageBus> _messageBus;
 	std::string _frameworkName;
 };

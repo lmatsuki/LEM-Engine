@@ -13,32 +13,6 @@
 
 class GameState;
 
-// Test classes
-class Aircraft;
-class Mothership
-{
-public:
-	Mothership(std::string name) : name(name) { std::cout << "Mothership " << name << " created." << std::endl; };
-	~Mothership() { std::cout << "Mothership " << name << " destroyed." << std::endl; }
-	void setChild(std::unique_ptr<Aircraft> wingMan) { _wingMan = std::move(wingMan); }
-
-private:
-	std::string name;
-	std::unique_ptr<Aircraft> _wingMan;
-};
-
-class Aircraft
-{
-public:
-	Aircraft(std::string name) : name(name) { std::cout << "Aircraft " << name << " created." << std::endl; };
-	~Aircraft() { std::cout << "Aircraft " << name << " destroyed." << std::endl; }
-	void setParent(std::shared_ptr<Mothership> wingMan) { _wingMan = wingMan; }
-
-private:
-	std::string name;
-	std::weak_ptr<Mothership> _wingMan;
-};
-
 class Game
 {
 public:
@@ -46,13 +20,11 @@ public:
 	~Game();
 
 	// Initialize SDL
-	int init();
+	bool init();
 	void shutdown();
 
 	bool isRunning();
 	void run();
-
-	void test();
 
 	// GameState methods
 	void pushState(std::unique_ptr<GameState> state);

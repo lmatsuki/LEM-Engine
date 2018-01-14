@@ -4,7 +4,6 @@
 #include <iostream>
 #include "Message.h"
 #include "System.h"
-#include "Framework.h"
 #include "Console.h"
 #include "GUI.h"
 #include "Graphics.h"
@@ -15,13 +14,15 @@ public:
 	MessageBus();
 	~MessageBus();
 
-	void init();
+	bool init();
 	void pollMessages();
-	void postMessage(Message message);
+	void postMessage(std::unique_ptr<Message> message);
+	// Runs the update function for every system.
+	void updateSystems();
 
 private:
-	std::vector<Message> _messages;
+	std::vector<std::unique_ptr<Message>> _messages;
 	std::vector<std::unique_ptr<System>> _systems;			// References to systems
-	std::vector<std::shared_ptr<Framework>> _frameworks;	// References to frameworks
+	//std::vector<std::shared_ptr<Framework>> _frameworks;	// References to frameworks
 	
 };

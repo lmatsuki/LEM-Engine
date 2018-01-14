@@ -10,7 +10,12 @@ Console::~Console()
 	
 }
 
-void Console::handleMessages(Message message)
+void Console::handleMessages(std::unique_ptr<Message> & message)
 {
-	std::cout << "Console Message: " << message.consoleMessage << std::endl;
+	std::cout << "~: " << message->consoleMessage << std::endl;
+}
+
+void Console::update()
+{
+
 }
