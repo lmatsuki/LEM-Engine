@@ -2,11 +2,12 @@
 
 #include <SDL.h>
 #include <iostream>
+#include "Framework.h"
 
-class Input
+class Input : public Framework
 {
 public:
-	Input();
+	Input(std::string frameworkName);
 	~Input();
 
 	void update();

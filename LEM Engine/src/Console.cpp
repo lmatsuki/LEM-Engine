@@ -1,4 +1,5 @@
 #include "Console.h"
+#include "MessageBus.h"
 
 Console::Console(std::shared_ptr<MessageBus> messageBus, std::string systemName) : System(messageBus, systemName)
 {

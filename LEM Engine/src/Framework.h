@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Message.h"
 #include "Exception.h"
+#include "StatusCode.h"
 
 class MessageBus;
 

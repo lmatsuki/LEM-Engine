@@ -1,8 +1,7 @@
 #include <iostream>
-#include "MessageBus.h"
 #include "Game.h"
-#include "GameStateEditor.h"
-#include "Test.h"
+//#include "GameStateEditor.h"
+//#include "Test.h"
 
 int main(int, char**) 
 {
@@ -28,15 +27,16 @@ int main(int, char**)
 
 	// To run and verify deeper C++ understanding
 	//Test test;
-	//test.runTests();
+	//test.runGame();
 
-	Game game;
-	if (game.init())
-		game.run();
+	std::shared_ptr<Game> game = std::make_shared<Game>();
+	if (game.get()->init())
+		game.get()->run();
 
 
 
 	std::cin.get();
+
 
 	
 

@@ -4,7 +4,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
-#include "System.h"
+#include "Game.h"
 
 // Test classes
 class Aircraft;
@@ -87,9 +87,16 @@ public:
 		messageVector.push_back(std::move(originalMessage));
 
 		//std::unique_ptr<Derived>(static_cast<Derived*>(messageVector[0].release()))->DerivedOnlyCall();
-		static_cast_ptr<Derived>(messageVector[0])->DerivedOnlyCall();
+		//static_cast_ptr<Derived>(messageVector[0])->DerivedOnlyCall();
 		//std::unique_ptr<Derived> derived = std::unique_ptr<Derived>(static_cast<Derived*>(baseMessage.release()));
 		//derived.get()->Call();
 		//derived.get()->DerivedOnlyCall();
+	}
+
+	void runGame()
+	{
+		std::shared_ptr<Game> game = std::make_shared<Game>();
+		if (game.get()->init())
+			game.get()->run();
 	}
 };

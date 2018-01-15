@@ -27,16 +27,16 @@ void GameStateEditor::render()
 	std::shared_ptr<Game> gamePtr = _game.lock();
 	if (gamePtr)
 	{
-		if (gamePtr->finishedInput())
-		{
-			gamePtr->loadImage(gamePtr->getInputText());
-			gamePtr->_inputEngine.toggleDisplayInputText(false);
-		}
-		else if (gamePtr->inputChanged())
-		{
-			gamePtr->loadText(gamePtr->getInputText());
-			gamePtr->_inputEngine.toggleDisplayInputText(true);
-			gamePtr->setInputChanged(false);
-		}
+		//if (gamePtr->finishedInput())
+		//{
+		//	gamePtr->loadImage(gamePtr->getInputText());
+		//	gamePtr->_inputEngine.toggleDisplayInputText(false);
+		//}
+		//else if (gamePtr->inputChanged())
+		//{
+		//	gamePtr->loadText(gamePtr->getInputText());
+		//	gamePtr->_inputEngine.toggleDisplayInputText(true);
+		//	gamePtr->setInputChanged(false);
+		//}
 	}
 }

@@ -1,20 +1,22 @@
 #include "Game.h"
 #include "GameState.h"
+#include "MessageBus.h"
 
 Game::Game() : _running(true)
 {
-	
+	std::cout << "Game Logic created." << std::endl;
 }
 
 Game::~Game()
 {
-	//shutdown();
+	shutdown();
+	std::cout << "Game Logic deleted." << std::endl;
 }
 
 bool Game::init()
 {
 	// Initialize message bus
-	_messageBus = std::make_shared<MessageBus>();
+	_messageBus = std::make_shared<MessageBus>(shared_from_this());
 	if (!_messageBus->init())
 		return false;
 
@@ -89,11 +91,34 @@ void Game::run()
 		//// Run save command (test)
 		//if (_assetManagerEngine.executeSave)
 		//	_assetManagerEngine.saveAllSprites();
-	}
 
-	// Temporarily shutdown to avoid dr.memory lockup
-	//_running = false;
+		// Temporarily shutdown to avoid dr.memory lockup
+		//_running = false;
+	}
 }
+
+void Game::handleMessages(std::unique_ptr<Message>& message)
+{
+	switch (message->type)
+	{
+	case MessageType::QuitGame:
+		_running = false;
+		break;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void Game::pushState(std::unique_ptr<GameState> state)
 {
@@ -132,29 +157,29 @@ bool Game::loadText(const std::string inputText)
 	return false;
 }
 
-bool Game::finishedInput()
-{
-	// A new image path has been entered
-	return _inputEngine.getInputFinished();
-}
+//bool Game::finishedInput()
+//{
+//	// A new image path has been entered
+//	return _inputEngine.getInputFinished();
+//}
 
-bool Game::inputEnabled()
-{
-	return _inputEngine.getDisplayInputText();
-}
-
-bool Game::inputChanged()
-{
-	return _inputEngine.getInputChanged();
-}
-
-void Game::setInputChanged(const bool changed)
-{
-	_inputEngine.setInputChanged(changed);
-}
-
-std::string Game::getInputText()
-{
-	_inputEngine.setInputFinished(false);
-	return _inputEngine.getInputText();
-}
+//bool Game::inputEnabled()
+//{
+//	return _inputEngine.getDisplayInputText();
+//}
+//
+//bool Game::inputChanged()
+//{
+//	return _inputEngine.getInputChanged();
+//}
+//
+//void Game::setInputChanged(const bool changed)
+//{
+//	_inputEngine.setInputChanged(changed);
+//}
+//
+//std::string Game::getInputText()
+//{
+//	_inputEngine.setInputFinished(false);
+//	return _inputEngine.getInputText();
+//}

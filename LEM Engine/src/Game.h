@@ -9,11 +9,9 @@
 #include "Graphics.h"
 #include "AssetManager.h"
 
-#include "MessageBus.h"
-
 class GameState;
 
-class Game
+class Game : public std::enable_shared_from_this<Game>
 {
 public:
 	Game();
@@ -25,6 +23,9 @@ public:
 
 	bool isRunning();
 	void run();
+	void handleMessages(std::unique_ptr<Message> & message);
+
+
 
 	// GameState methods
 	void pushState(std::unique_ptr<GameState> state);
@@ -38,14 +39,14 @@ public:
 	bool loadText(const std::string inputText);
 
 	// Input Engine
-	bool finishedInput();
-	bool inputEnabled();
-	bool inputChanged();
-	void setInputChanged(const bool changed);
-	std::string getInputText();
+	//bool finishedInput();
+	//bool inputEnabled();
+	//bool inputChanged();
+	//void setInputChanged(const bool changed);
+	//std::string getInputText();
 
 	// engine parts
-	Input _inputEngine;
+	//Input _inputEngine;
 	//Graphics _graphicsEngine;
 	AssetManager _assetManagerEngine;
 

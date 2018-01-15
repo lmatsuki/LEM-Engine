@@ -4,7 +4,13 @@ enum class MessageType
 {
 	Console,
 
-	// GUI System
-	CreateWindow,
+	// GUI System	
+	LoadBackground,
 	LoadImage,
+
+	// Render System
+	CreateMainWindow,
+	
+	// Game Logic
+	QuitGame,
 };

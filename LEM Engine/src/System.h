@@ -17,15 +17,7 @@ public:
 	virtual void handleMessages(std::unique_ptr<Message> & message) = 0;
 	virtual void update() = 0;
 
-private:
+public:
 	std::weak_ptr<MessageBus> _messageBus;
 	std::string _systemName;
 };
-
-// Useful template functions for the project
-template<typename D, typename B>
-std::unique_ptr<D> static_cast_ptr(std::unique_ptr<B>& base)
-{
-	std::unique_ptr<D> castPtr = std::unique_ptr<D>(static_cast<D*>(base.release()));
-	return castPtr;
-}

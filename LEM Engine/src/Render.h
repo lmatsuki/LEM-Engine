@@ -3,11 +3,11 @@
 #include "System.h"
 #include "Graphics.h"
 
-class GUI : public System
+class Render : public System
 {
 public:
-	GUI(std::shared_ptr<MessageBus> messageBus, std::string systemName, std::shared_ptr<Graphics> graphicsFramework);
-	~GUI();
+	Render(std::shared_ptr<MessageBus> messageBus, std::string systemName, std::shared_ptr<Graphics> graphicsFramework);
+	~Render();
 
 	void handleMessages(std::unique_ptr<Message> & message);
 	void update();

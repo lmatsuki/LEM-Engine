@@ -4,7 +4,7 @@ Graphics::Graphics(std::string frameworkName) : _screenWidth(800), _screenHeight
 	gRenderer(NULL), gTexture(NULL), gInputTextTexture(NULL), textColor({ 0, 0, 0, 0xFF }), gFont(NULL), _textWidth(0), _textHeight(0),
 	Framework(frameworkName)
 {
-	init();
+
 }
 
 Graphics::~Graphics()
@@ -21,19 +21,19 @@ Graphics::~Graphics()
 	IMG_Quit();
 }
 
-bool Graphics::init()
+StatusCode Graphics::init()
 {
 	// Initialize SDL VIDEO
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
 		std::cout << "SDL_Init Error: " << SDL_GetError() << std::endl;
-		return false;
+		return StatusCode::FailedToInitialize;
 	}	
 
-	return true;
+	return StatusCode::Success;
 }
 
-bool Graphics::createWindow()
+bool Graphics::createMainWindow()
 {
 	//Create window
 	gWindow = SDL_CreateWindow("LEM Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, _screenWidth, _screenHeight, SDL_WINDOW_SHOWN);

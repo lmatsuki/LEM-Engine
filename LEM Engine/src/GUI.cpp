@@ -1,14 +1,13 @@
 #include "GUI.h"
 
-GUI::GUI(std::shared_ptr<MessageBus> messageBus, std::string systemName) : System(messageBus, systemName)
+GUI::GUI(std::shared_ptr<MessageBus> messageBus, std::string systemName, std::shared_ptr<Graphics> graphicsFramework) 
+	: _graphicsFramework(graphicsFramework), System(messageBus, systemName)
 {
 	//Exception e("Some GUI initializiation error.");
 	//throw (e);
 
 	// Initialize frameworks
-	_graphicsFramework = std::make_unique<Graphics>("Graphics");
-	if (!_graphicsFramework.get()->init())
-		throw Exception("Error initializing Graphics Framework in GUI System.");
+
 }
 
 GUI::~GUI()
@@ -20,10 +19,7 @@ void GUI::handleMessages(std::unique_ptr<Message> & message)
 {
 	switch (message->type)
 	{
-	case MessageType::CreateWindow:
-		_graphicsFramework.get()->createWindow();
-		break;
-	case MessageType::LoadImage:		
+	case MessageType::LoadBackground:		
 		std::string filePath = ((StringMessage*)message.get())->dataString;
 		_graphicsFramework.get()->loadImage(filePath);
 		break;
@@ -32,5 +28,5 @@ void GUI::handleMessages(std::unique_ptr<Message> & message)
 
 void GUI::update()
 {
-	_graphicsFramework.get()->render();
+	// Render System already calls render to Graphics Framework
 }

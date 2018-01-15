@@ -1,7 +1,7 @@
 #include "Input.h"
 
-Input::Input() : _pendingExit(false), _inputText(""), _displayInputText(false), _inputFinished(false),
-	_inputChanged(false)
+Input::Input(std::string frameworkName) : _pendingExit(false), _inputText(""), _displayInputText(false), _inputFinished(false),
+	_inputChanged(false), Framework(frameworkName)
 {
 
 }

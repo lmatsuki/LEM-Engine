@@ -14,12 +14,12 @@ public:
 	~Graphics();
 
 	// Initialize the graphics engine
-	bool init();
+	StatusCode init();
 
 	/***************************************************************/
 	/****************** Methods called by Systems ******************/
 	/***************************************************************/
-	bool createWindow();
+	bool createMainWindow();
 	bool loadImage(std::string path);
 
 	// This is called each frame
