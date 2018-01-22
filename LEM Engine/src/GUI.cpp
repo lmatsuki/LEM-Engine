@@ -15,7 +15,7 @@ GUI::~GUI()
 	std::cout << "GUI is finally shutdown." << std::endl;
 }
 
-void GUI::handleMessages(std::unique_ptr<Message> & message)
+void GUI::handleMessages(std::shared_ptr<Message> & message)
 {
 	switch (message->type)
 	{

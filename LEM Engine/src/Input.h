@@ -10,6 +10,9 @@ public:
 	Input(std::string frameworkName);
 	~Input();
 
+
+
+
 	void update();
 	bool exitScene();
 	std::string getInputText();

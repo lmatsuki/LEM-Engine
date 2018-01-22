@@ -1,7 +1,8 @@
 #include "Render.h"
 
-Render::Render(std::shared_ptr<MessageBus> messageBus, std::string systemName, std::shared_ptr<Graphics> graphicsFramework) 
-	: _graphicsFramework(graphicsFramework), System(messageBus, systemName)
+Render::Render(std::shared_ptr<MessageBus> messageBus, std::string systemName, std::shared_ptr<Graphics> graphicsFramework,
+	std::shared_ptr<Timer> timerFramework)
+	: _graphicsFramework(graphicsFramework), _timerFramework(timerFramework), System(messageBus, systemName)
 {
 
 }
@@ -11,7 +12,7 @@ Render::~Render()
 	std::cout << "Render is finally shutdown." << std::endl;
 }
 
-void Render::handleMessages(std::unique_ptr<Message> & message)
+void Render::handleMessages(std::shared_ptr<Message> & message)
 {
 	switch (message->type)
 	{

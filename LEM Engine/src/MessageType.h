@@ -13,4 +13,8 @@ enum class MessageType
 	
 	// Game Logic
 	QuitGame,
+
+	// Timed Events
+	TimedMilliSecondsEvent,
+	TimedSecondsEvent,
 };

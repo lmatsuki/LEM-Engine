@@ -9,7 +9,7 @@ public:
 	GUI(std::shared_ptr<MessageBus> messageBus, std::string systemName, std::shared_ptr<Graphics> graphicsFramework);
 	~GUI();
 
-	void handleMessages(std::unique_ptr<Message> & message);
+	void handleMessages(std::shared_ptr<Message> & message);
 	void update();
 
 private:

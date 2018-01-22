@@ -29,11 +29,10 @@ int main(int, char**)
 	//Test test;
 	//test.runGame();
 
+	// The game class uses enable_shared_from_this, so we need to create a share_ptr here
 	std::shared_ptr<Game> game = std::make_shared<Game>();
 	if (game.get()->init())
 		game.get()->run();
-
-
 
 	std::cin.get();
 

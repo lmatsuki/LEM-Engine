@@ -23,7 +23,7 @@ public:
 
 	bool isRunning();
 	void run();
-	void handleMessages(std::unique_ptr<Message> & message);
+	void handleMessages(std::shared_ptr<Message> & message);
 
 
 
@@ -53,6 +53,7 @@ public:
 private:
 	// Properties
 	bool _running;
+	int _framesPerSecond;
 	std::shared_ptr<MessageBus> _messageBus;
 
 	std::stack<std::unique_ptr<GameState>> _states;

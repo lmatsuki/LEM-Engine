@@ -11,7 +11,7 @@ Console::~Console()
 	
 }
 
-void Console::handleMessages(std::unique_ptr<Message> & message)
+void Console::handleMessages(std::shared_ptr<Message> & message)
 {
 	std::cout << "~: " << message->consoleMessage << std::endl;
 }

@@ -2,7 +2,7 @@
 #include "GameState.h"
 #include "MessageBus.h"
 
-Game::Game() : _running(true)
+Game::Game() : _running(true), _framesPerSecond(60)
 {
 	std::cout << "Game Logic created." << std::endl;
 }
@@ -19,6 +19,9 @@ bool Game::init()
 	_messageBus = std::make_shared<MessageBus>(shared_from_this());
 	if (!_messageBus->init())
 		return false;
+
+	// Also set the FPS if needed from editor options
+
 
 	// Initialize engine components
 	//std::cout << "Initializing SDL.." << std::endl;
@@ -57,10 +60,16 @@ bool Game::isRunning()
 
 void Game::run()
 {
+	int simulatedTime = 0;
 	while (_running)
 	{
-		_messageBus->pollMessages();
-		_messageBus->updateSystems();
+		int currentTime = std::clock();
+		while (simulatedTime < currentTime)
+		{
+			simulatedTime += _framesPerSecond;
+			_messageBus->pollMessages();
+			_messageBus->updateSystems(); // Pass in frames per second as dt
+		}
 
 		// TO DO... Implement clock 		
 
@@ -97,7 +106,7 @@ void Game::run()
 	}
 }
 
-void Game::handleMessages(std::unique_ptr<Message>& message)
+void Game::handleMessages(std::shared_ptr<Message>& message)
 {
 	switch (message->type)
 	{
