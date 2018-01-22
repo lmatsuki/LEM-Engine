@@ -106,7 +106,7 @@ void Game::run()
 	}
 }
 
-void Game::handleMessages(std::shared_ptr<Message>& message)
+void Game::handleMessages(const std::shared_ptr<const Message>& message)
 {
 	switch (message->type)
 	{
@@ -128,7 +128,7 @@ void Game::handleMessages(std::shared_ptr<Message>& message)
 
 
 
-
+/* Legacy code */
 void Game::pushState(std::unique_ptr<GameState> state)
 {
 	this->_states.push(std::move(state));

@@ -8,13 +8,12 @@
 struct Message
 {
 	Message() {}
-	Message(MessageType type, std::string consoleMessage) : type(type), toBeDeleted(false), consoleMessage(consoleMessage)
+	Message(MessageType type, std::string consoleMessage) : type(type), consoleMessage(consoleMessage)
 	{
 
 	}
 	virtual ~Message() {}
 
 	MessageType type;
-	bool toBeDeleted;
 	std::string consoleMessage;
 };

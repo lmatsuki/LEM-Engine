@@ -13,10 +13,10 @@ public:
 
 	void handleMessages(std::shared_ptr<Message> & message);
 	void update();
-	void handleTimedMessages(std::shared_ptr<TimedMessage> & message, const std::vector<std::shared_ptr<Message>>::iterator & it);
+	void handleTimedMessages(std::shared_ptr<TimedMessage> & message);
 
 private:
-	std::vector<std::shared_ptr<Message>> _timedEvents;
+	std::vector<std::shared_ptr<TimedMessage>> _timedEvents;
 	std::shared_ptr<Timer> _timerFramework;
 
 	int _lastMilliSeconds;

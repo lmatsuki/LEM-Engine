@@ -6,7 +6,7 @@
 struct TimedMessage : public Message
 {
 	TimedMessage(MessageType type, std::string consoleMessage, int remainingTime, std::shared_ptr<Message> innerMessage)
-		: remainingTime(remainingTime), innerMessage(innerMessage), Message(type, consoleMessage)
+		: remainingTime(remainingTime), innerMessage(innerMessage), toBeDeleted(false), Message(type, consoleMessage)
 	{
 
 	}
@@ -18,6 +18,7 @@ struct TimedMessage : public Message
 			remainingTime = 0;
 	}
 
-	std::shared_ptr<Message> innerMessage;
 	int remainingTime;
+	std::shared_ptr<Message> innerMessage;
+	bool toBeDeleted;
 };

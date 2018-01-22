@@ -46,7 +46,7 @@ bool MessageBus::init()
 
 	std::shared_ptr<StringMessage> delayedImageMsg = std::make_shared<StringMessage>(MessageType::LoadBackground, "Loading a second background image.", "Assets/Sprites/preview.png");
 	/*TimedMilliSecondsMessage timedMsg(MessageType::TimedMilliSecondsEvent, "Loading a background image after 5000ms.", 5000, delayedImageMsg);*/
-	TimedSecondsMessage timedMsg(MessageType::TimedSecondsEvent, "Loading a background image after 5 seconds.", 5, delayedImageMsg);
+	TimedSecondsMessage timedMsg(MessageType::TimedSecondsEvent, "Loading a background image after 3 seconds.", 3, delayedImageMsg);
 	postMessage(std::make_shared<TimedSecondsMessage>(timedMsg));
 
 	//Message quitMsg(MessageType::QuitGame, "Quit application.");

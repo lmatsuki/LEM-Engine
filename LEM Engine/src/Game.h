@@ -17,16 +17,30 @@ public:
 	Game();
 	~Game();
 
-	// Initialize SDL
+	// Initialize the MessageBus.
 	bool init();
+
 	void shutdown();
 
 	bool isRunning();
+
 	void run();
-	void handleMessages(std::shared_ptr<Message> & message);
+
+	void handleMessages(const std::shared_ptr<const Message> & message);
+
+
+private:
+	bool _running;
+	int _framesPerSecond; // Not const to allow changing during Play mode via editor.
+	std::shared_ptr<MessageBus> _messageBus;
 
 
 
+
+
+
+	/* Legacy code */
+public:
 	// GameState methods
 	void pushState(std::unique_ptr<GameState> state);
 	void popState();
@@ -51,10 +65,5 @@ public:
 	AssetManager _assetManagerEngine;
 
 private:
-	// Properties
-	bool _running;
-	int _framesPerSecond;
-	std::shared_ptr<MessageBus> _messageBus;
-
 	std::stack<std::unique_ptr<GameState>> _states;
 };
