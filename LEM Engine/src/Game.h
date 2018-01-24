@@ -26,7 +26,7 @@ public:
 
 	void run();
 
-	void handleMessages(const std::shared_ptr<const Message> & message);
+	void handleMessages(const Message & message);
 
 
 private:

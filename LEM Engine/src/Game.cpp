@@ -106,9 +106,9 @@ void Game::run()
 	}
 }
 
-void Game::handleMessages(const std::shared_ptr<const Message>& message)
+void Game::handleMessages(const Message& message)
 {
-	switch (message->type)
+	switch (message.type)
 	{
 	case MessageType::QuitGame:
 		_running = false;

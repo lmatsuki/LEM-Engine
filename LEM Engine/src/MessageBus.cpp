@@ -64,8 +64,8 @@ void MessageBus::pollMessages()
 		gamePtr = _game.lock();
 		if (gamePtr)
 		{
-			// Send each message to Game Logic
-			_game.lock()->handleMessages(message);
+			// Send each message to Game Logic (read-only)
+			_game.lock()->handleMessages(*message);
 		}
 
 		// Sends each message to every system
