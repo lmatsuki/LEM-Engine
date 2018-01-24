@@ -3,12 +3,12 @@
 #include <vector>
 #include <algorithm>
 #include "System.h"
-#include "Timer.h"
+#include "ClockLib.h"
 
 class TimedEvent : public System
 {
 public:
-	TimedEvent(std::shared_ptr<MessageBus> messageBus, std::string systemName, std::shared_ptr<Timer> timerFramework);
+	TimedEvent(std::shared_ptr<MessageBus> messageBus, std::string systemName);
 	~TimedEvent();
 
 	void handleMessages(std::shared_ptr<Message> & message);
@@ -17,7 +17,6 @@ public:
 
 private:
 	std::vector<std::shared_ptr<TimedMessage>> _timedEvents;
-	std::shared_ptr<Timer> _timerFramework;
 
 	int _lastMilliSeconds;
 };

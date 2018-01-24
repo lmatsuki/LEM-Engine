@@ -1,8 +1,8 @@
 #include "TimedEvent.h"
 #include "MessageBus.h"
 
-TimedEvent::TimedEvent(std::shared_ptr<MessageBus> messageBus, std::string systemName, std::shared_ptr<Timer> timerFramework)
-	: _timerFramework(timerFramework), _lastMilliSeconds(0), System(messageBus, systemName)
+TimedEvent::TimedEvent(std::shared_ptr<MessageBus> messageBus, std::string systemName)
+	: _lastMilliSeconds(0), System(messageBus, systemName)
 {
 }
 
@@ -25,9 +25,9 @@ void TimedEvent::handleMessages(std::shared_ptr<Message>& message)
 void TimedEvent::update()
 {
 	// Update the timer
-	_timerFramework.get()->update();
-	int elapsedTime = _timerFramework->getTimeInMilliSeconds() - _lastMilliSeconds;
-	_lastMilliSeconds = _timerFramework->getTimeInMilliSeconds();
+	//_timerFramework.get()->update();
+	int elapsedTime = Clock::getTimeInMilliSeconds() - _lastMilliSeconds;
+	_lastMilliSeconds = Clock::getTimeInMilliSeconds();
 
 	// Update the remaining time for timed events
 	for (auto & event : _timedEvents)

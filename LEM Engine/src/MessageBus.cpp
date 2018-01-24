@@ -19,13 +19,13 @@ bool MessageBus::init()
 
 	// Create Frameworks that are shared across multiple systems
 	std::shared_ptr<Graphics> graphicsFramework = std::make_shared<Graphics>("Graphics");
-	std::shared_ptr<Timer> timerFramework = std::make_shared<Timer>("Timer");
+	//std::shared_ptr<Timer> timerFramework = std::make_shared<Timer>("Timer");
 
 	// Add systems to the message bus
 	addSystem<Console>("Console");
-	addSystem<Render>("Render", graphicsFramework, timerFramework);
+	addSystem<Render>("Render", graphicsFramework);
 	addSystem<GUI>("GUI", graphicsFramework);
-	addSystem<TimedEvent>("TimedEvent", timerFramework);
+	addSystem<TimedEvent>("TimedEvent");
 
 	// Initialize Frameworks
 	if (graphicsFramework->init() != StatusCode::Success)
@@ -44,10 +44,10 @@ bool MessageBus::init()
 	StringMessage imageMsg(MessageType::LoadBackground, "Loading a background image.", "Assets/Sprites/hello_world.bmp");
 	postMessage(std::make_shared<StringMessage>(imageMsg));
 
-	std::shared_ptr<StringMessage> delayedImageMsg = std::make_shared<StringMessage>(MessageType::LoadBackground, "Loading a second background image.", "Assets/Sprites/preview.png");
+	//std::shared_ptr<StringMessage> delayedImageMsg = std::make_shared<StringMessage>(MessageType::LoadBackground, "Loading a second background image.", "Assets/Sprites/preview.png");
 	/*TimedMilliSecondsMessage timedMsg(MessageType::TimedMilliSecondsEvent, "Loading a background image after 5000ms.", 5000, delayedImageMsg);*/
-	TimedSecondsMessage timedMsg(MessageType::TimedSecondsEvent, "Loading a background image after 3 seconds.", 3, delayedImageMsg);
-	postMessage(std::make_shared<TimedSecondsMessage>(timedMsg));
+	//TimedSecondsMessage timedMsg(MessageType::TimedSecondsEvent, "Loading a background image after 3 seconds.", 3, delayedImageMsg);
+	//postMessage(std::make_shared<TimedSecondsMessage>(timedMsg));
 
 	//Message quitMsg(MessageType::QuitGame, "Quit application.");
 	//postMessage(std::make_unique<Message>(quitMsg));
