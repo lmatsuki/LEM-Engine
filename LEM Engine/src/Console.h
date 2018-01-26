@@ -10,6 +10,6 @@ public:
 	~Console();
 
 	virtual const std::string getSystemName() override;
-	void handleMessages(std::shared_ptr<Message> & message) override;
+	void handleMessages(const std::shared_ptr<Message> & message) override;
 	void update() override;
 };

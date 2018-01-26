@@ -7,12 +7,18 @@
 class Input : public Framework
 {
 public:
-	Input(std::string frameworkName);
+	Input();
 	~Input();
 
+	virtual const std::string & getFrameworkName() override;
 
 
 
+
+
+
+
+	// Legacy code //
 	void update();
 	bool exitScene();
 	std::string getInputText();

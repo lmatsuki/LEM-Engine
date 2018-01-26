@@ -10,23 +10,38 @@
 class Graphics : public Framework
 {
 public:
-	Graphics(std::string frameworkName);
+	Graphics();
 	~Graphics();
 
 	// Initialize the graphics engine
-	StatusCode init();
+	const StatusCode init();
+
+	virtual const std::string & getFrameworkName() override;
 
 	/***************************************************************/
 	/****************** Methods called by Systems ******************/
 	/***************************************************************/
 	bool createMainWindow();
-	bool loadImage(std::string path);
+	bool loadImage(const std::string & path);
 
 	// This is called each frame
 	void render();
 
+private:
+	SDL_Window * gWindow;
+	SDL_Renderer *gRenderer;
+	SDL_Texture *gTexture;
+	int _screenWidth;
+	int _screenHeight;
 
 
+
+
+
+
+
+	// Legacy Code ///
+public:
 	// Load the resources
 	
 	bool load();	
@@ -50,12 +65,6 @@ public:
 	void unload();
 
 private:
-	SDL_Window *gWindow;
-	SDL_Renderer *gRenderer;
-	SDL_Texture *gTexture;
-	int _screenWidth;
-	int _screenHeight;
-	
 	// Used for text input
 	SDL_Texture *gInputTextTexture;
 	SDL_Color textColor;

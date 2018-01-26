@@ -16,7 +16,7 @@ const std::string Console::getSystemName()
 	return "Console";
 }
 
-void Console::handleMessages(std::shared_ptr<Message> & message)
+void Console::handleMessages(const std::shared_ptr<Message> & message)
 {
 	std::cout << "~: " << message->consoleMessage << std::endl;
 }

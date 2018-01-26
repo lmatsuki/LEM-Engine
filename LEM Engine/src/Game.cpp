@@ -42,6 +42,26 @@ bool Game::init()
 
 	//std::cout << "SDL initialized!" << std::endl;
 	//_running = true;
+
+	// ********************************************************* //
+	// ********************* Fake messages ********************* //
+	// ********************************************************* //
+
+	Message consoleMsg(MessageType::Console, "Testing console printing.");
+	_messageBus->postMessage(std::make_shared<Message>(consoleMsg));
+	Message windowMsg(MessageType::CreateMainWindow, "Creating main window.");
+	_messageBus->postMessage(std::make_shared<Message>(windowMsg));
+	StringMessage imageMsg(MessageType::LoadBackground, "Loading a background image.", "Assets/Sprites/hello_world.bmp");
+	_messageBus->postMessage(std::make_shared<StringMessage>(imageMsg));
+
+	std::shared_ptr<StringMessage> delayedImageMsg = std::make_shared<StringMessage>(MessageType::LoadBackground, "Loading a second background image.", "Assets/Sprites/preview.png");
+	//TimedMilliSecondsMessage timedMsg(MessageType::TimedMilliSecondsEvent, "Loading a background image after 5000ms.", 5000, delayedImageMsg);
+	TimedSecondsMessage timedMsg(MessageType::TimedSecondsEvent, "Loading a background image after 3 seconds.", 3, delayedImageMsg);
+	_messageBus->postMessage(std::make_shared<TimedSecondsMessage>(timedMsg));
+
+	//Message quitMsg(MessageType::QuitGame, "Quit application.");
+	//postMessage(std::make_unique<Message>(quitMsg));
+
 	return true;
 }
 

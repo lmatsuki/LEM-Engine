@@ -16,7 +16,7 @@ const std::string Render::getSystemName()
 	return "Render";
 }
 
-void Render::handleMessages(std::shared_ptr<Message> & message)
+void Render::handleMessages(const std::shared_ptr<Message> & message)
 {
 	switch (message->type)
 	{

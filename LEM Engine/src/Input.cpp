@@ -1,7 +1,7 @@
 #include "Input.h"
 
-Input::Input(std::string frameworkName) : _pendingExit(false), _inputText(""), _displayInputText(false), _inputFinished(false),
-	_inputChanged(false), Framework(frameworkName)
+Input::Input() : _pendingExit(false), _inputText(""), _displayInputText(false), _inputFinished(false),
+	_inputChanged(false)
 {
 
 }
@@ -10,6 +10,22 @@ Input::~Input()
 {
 	
 }
+
+const std::string & Input::getFrameworkName()
+{
+	return "Input";
+}
+
+
+
+
+
+
+
+
+
+
+
 
 void Input::update()
 {

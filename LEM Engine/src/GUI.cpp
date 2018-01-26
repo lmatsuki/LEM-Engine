@@ -20,7 +20,7 @@ const std::string GUI::getSystemName()
 	return "GUI";
 }
 
-void GUI::handleMessages(std::shared_ptr<Message> & message)
+void GUI::handleMessages(const std::shared_ptr<Message> & message)
 {
 	switch (message->type)
 	{

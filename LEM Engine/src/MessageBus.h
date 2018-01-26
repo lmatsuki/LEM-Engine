@@ -20,7 +20,11 @@ public:
 
 	bool init();
 	void pollMessages();
-	void postMessage(std::shared_ptr<Message> message);
+	void postMessage(const std::shared_ptr<Message> & message);
+
+	// Add a framework.
+	template <typename T>
+	std::shared_ptr<T> addFramework();
 
 	// Add a system.
 	template <typename T>
@@ -28,17 +32,17 @@ public:
 
 	// Add a system and a required framework.
 	template <typename T, typename T2>	
-	void addSystem(std::shared_ptr<T2> framework);
+	void addSystem(std::shared_ptr<T2> & framework);
 
 	// Add a system and two required frameworks.
 	template <typename T, typename T2, typename T3>
-	void addSystem(std::shared_ptr<T2> firstFramework, std::shared_ptr<T3> secondFramework);
+	void addSystem(std::shared_ptr<T2> & firstFramework, std::shared_ptr<T3> & secondFramework);
 
 	// Runs the update function for every system.
 	void updateSystems();
 
 private:
 	std::weak_ptr<Game> _game;							// Reference to Game Logic
-	std::vector<std::shared_ptr<Message>> _messages;
+	std::vector<std::shared_ptr<Message>> _messages;	// References to queued messages
 	std::vector<std::unique_ptr<System>> _systems;		// References to systems	
 };

@@ -12,7 +12,7 @@ public:
 	~TimedEvent();
 
 	virtual const std::string getSystemName() override;
-	void handleMessages(std::shared_ptr<Message> & message) override;
+	void handleMessages(const std::shared_ptr<Message> & message) override;
 	void update() override;
 	void handleTimedMessages(std::shared_ptr<TimedMessage> & message);
 

@@ -15,7 +15,7 @@ const std::string TimedEvent::getSystemName()
 	return "TimedEvent";
 }
 
-void TimedEvent::handleMessages(std::shared_ptr<Message>& message)
+void TimedEvent::handleMessages(const std::shared_ptr<Message>& message)
 {
 	switch (message->type)
 	{
@@ -30,7 +30,6 @@ void TimedEvent::handleMessages(std::shared_ptr<Message>& message)
 void TimedEvent::update()
 {
 	// Update the timer
-	//_timerFramework.get()->update();	
 	int elapsedTime = Clock::getTimeInMilliSeconds() - _lastMilliSeconds;
 	_lastMilliSeconds = Clock::getTimeInMilliSeconds();
 

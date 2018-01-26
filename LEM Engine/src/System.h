@@ -17,9 +17,9 @@ public:
 	virtual ~System();
 
 	virtual const std::string getSystemName() = 0;
-	virtual void handleMessages(std::shared_ptr<Message> & message) = 0;
+	virtual void handleMessages(const std::shared_ptr<Message> & message) = 0;
 	virtual void update() = 0;
-	virtual void postMessage(std::shared_ptr<Message> & message);
+	virtual void postMessage(const std::shared_ptr<Message> & message);
 
 public:
 	std::weak_ptr<MessageBus> _messageBus;

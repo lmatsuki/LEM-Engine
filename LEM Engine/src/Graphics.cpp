@@ -1,8 +1,7 @@
 #include "Graphics.h"
 
-Graphics::Graphics(std::string frameworkName) : _screenWidth(800), _screenHeight(600), gWindow(NULL), 
-	gRenderer(NULL), gTexture(NULL), gInputTextTexture(NULL), textColor({ 0, 0, 0, 0xFF }), gFont(NULL), _textWidth(0), _textHeight(0),
-	Framework(frameworkName)
+Graphics::Graphics() : _screenWidth(800), _screenHeight(600), gWindow(NULL), 
+	gRenderer(NULL), gTexture(NULL), gInputTextTexture(NULL), textColor({ 0, 0, 0, 0xFF }), gFont(NULL), _textWidth(0), _textHeight(0)	
 {
 
 }
@@ -21,7 +20,7 @@ Graphics::~Graphics()
 	IMG_Quit();
 }
 
-StatusCode Graphics::init()
+const StatusCode Graphics::init()
 {
 	// Initialize SDL VIDEO
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -31,6 +30,11 @@ StatusCode Graphics::init()
 	}	
 
 	return StatusCode::Success;
+}
+
+const std::string & Graphics::getFrameworkName()
+{
+	return "Graphics";
 }
 
 bool Graphics::createMainWindow()
@@ -75,7 +79,7 @@ bool Graphics::createMainWindow()
 	return true;
 }
 
-bool Graphics::loadImage(std::string path)
+bool Graphics::loadImage(const std::string & path)
 {
 	//Load image at specified path
 	SDL_Surface* loadedSurface = IMG_Load(path.c_str());

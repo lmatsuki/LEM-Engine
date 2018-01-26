@@ -11,10 +11,10 @@ class MessageBus;
 class Framework
 {
 public:
-	Framework(std::string frameworkName);
+	Framework();
 	virtual ~Framework();
 
+	virtual const std::string & getFrameworkName() = 0;
 private:
 	//std::weak_ptr<MessageBus> _messageBus;
-	std::string _frameworkName;
 };
