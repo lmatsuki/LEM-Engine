@@ -8,15 +8,15 @@
 class TimedEvent : public System
 {
 public:
-	TimedEvent(std::shared_ptr<MessageBus> messageBus, std::string systemName);
+	TimedEvent(std::shared_ptr<MessageBus> messageBus);
 	~TimedEvent();
 
-	void handleMessages(std::shared_ptr<Message> & message);
-	void update();
+	virtual const std::string getSystemName() override;
+	void handleMessages(std::shared_ptr<Message> & message) override;
+	void update() override;
 	void handleTimedMessages(std::shared_ptr<TimedMessage> & message);
 
 private:
 	std::vector<std::shared_ptr<TimedMessage>> _timedEvents;
-
 	int _lastMilliSeconds;
 };

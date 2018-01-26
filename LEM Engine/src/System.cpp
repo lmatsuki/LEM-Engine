@@ -1,14 +1,14 @@
 #include "System.h"
 #include "MessageBus.h"
 
-System::System(std::shared_ptr<MessageBus> messageBus, std::string systemName) : _messageBus(messageBus), _systemName(systemName)
+System::System(std::shared_ptr<MessageBus> messageBus) : _messageBus(messageBus)
 {
-	std::cout << _systemName << " system created." << std::endl;
+
 }
 
 System::~System()
 {
-	std::cout << _systemName << " system deleted." << std::endl;
+
 }
 
 void System::postMessage(std::shared_ptr<Message>& message)

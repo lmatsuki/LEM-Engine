@@ -22,10 +22,10 @@ bool MessageBus::init()
 	//std::shared_ptr<Timer> timerFramework = std::make_shared<Timer>("Timer");
 
 	// Add systems to the message bus
-	addSystem<Console>("Console");
-	addSystem<Render>("Render", graphicsFramework);
-	addSystem<GUI>("GUI", graphicsFramework);
-	addSystem<TimedEvent>("TimedEvent");
+	addSystem<Console>();
+	addSystem<Render>(graphicsFramework);
+	addSystem<GUI>(graphicsFramework);
+	addSystem<TimedEvent>();
 
 	// Initialize Frameworks
 	if (graphicsFramework->init() != StatusCode::Success)
@@ -44,10 +44,10 @@ bool MessageBus::init()
 	StringMessage imageMsg(MessageType::LoadBackground, "Loading a background image.", "Assets/Sprites/hello_world.bmp");
 	postMessage(std::make_shared<StringMessage>(imageMsg));
 
-	//std::shared_ptr<StringMessage> delayedImageMsg = std::make_shared<StringMessage>(MessageType::LoadBackground, "Loading a second background image.", "Assets/Sprites/preview.png");
-	/*TimedMilliSecondsMessage timedMsg(MessageType::TimedMilliSecondsEvent, "Loading a background image after 5000ms.", 5000, delayedImageMsg);*/
-	//TimedSecondsMessage timedMsg(MessageType::TimedSecondsEvent, "Loading a background image after 3 seconds.", 3, delayedImageMsg);
-	//postMessage(std::make_shared<TimedSecondsMessage>(timedMsg));
+	std::shared_ptr<StringMessage> delayedImageMsg = std::make_shared<StringMessage>(MessageType::LoadBackground, "Loading a second background image.", "Assets/Sprites/preview.png");
+	//TimedMilliSecondsMessage timedMsg(MessageType::TimedMilliSecondsEvent, "Loading a background image after 5000ms.", 5000, delayedImageMsg);
+	TimedSecondsMessage timedMsg(MessageType::TimedSecondsEvent, "Loading a background image after 3 seconds.", 3, delayedImageMsg);
+	postMessage(std::make_shared<TimedSecondsMessage>(timedMsg));
 
 	//Message quitMsg(MessageType::QuitGame, "Quit application.");
 	//postMessage(std::make_unique<Message>(quitMsg));
@@ -85,21 +85,24 @@ void MessageBus::postMessage(std::shared_ptr<Message> message)
 }
 
 template<typename T>
-void MessageBus::addSystem(std::string systemName)
+void MessageBus::addSystem()
 {
-	_systems.push_back(std::make_unique<T>(std::shared_ptr<MessageBus>(shared_from_this()), systemName));
+	_systems.push_back(std::make_unique<T>(std::shared_ptr<MessageBus>(shared_from_this())));
+	Utility::printLn("Added " + _systems.back()->getSystemName() + " system to MessageBus.");
 }
 
 template <typename T, typename T2>
-void MessageBus::addSystem(std::string systemName, std::shared_ptr<T2> framework)
+void MessageBus::addSystem(std::shared_ptr<T2> framework)
 {
-	_systems.push_back(std::make_unique<T>(std::shared_ptr<MessageBus>(shared_from_this()), systemName, framework));
+	_systems.push_back(std::make_unique<T>(std::shared_ptr<MessageBus>(shared_from_this()), framework));
+	Utility::printLn("Added " + _systems.back()->getSystemName() + " system to MessageBus.");
 }
 
 template <typename T, typename T2, typename T3>
-void MessageBus::addSystem(std::string systemName, std::shared_ptr<T2> firstFramework, std::shared_ptr<T3> secondFramework)
+void MessageBus::addSystem(std::shared_ptr<T2> firstFramework, std::shared_ptr<T3> secondFramework)
 {
-	_systems.push_back(std::make_unique<T>(std::shared_ptr<MessageBus>(shared_from_this()), systemName, firstFramework, secondFramework));
+	_systems.push_back(std::make_unique<T>(std::shared_ptr<MessageBus>(shared_from_this()), firstFramework, secondFramework));
+	Utility::printLn("Added " + _systems.back()->getSystemName() + " system to MessageBus.");
 }
 
 // Runs the update function for every system.

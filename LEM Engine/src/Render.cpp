@@ -1,7 +1,7 @@
 #include "Render.h"
 
-Render::Render(std::shared_ptr<MessageBus> messageBus, std::string systemName, std::shared_ptr<Graphics> graphicsFramework)
-	: _graphicsFramework(graphicsFramework), System(messageBus, systemName)
+Render::Render(std::shared_ptr<MessageBus> messageBus, std::shared_ptr<Graphics> graphicsFramework)
+	: _graphicsFramework(graphicsFramework), System(messageBus)
 {
 
 }
@@ -9,6 +9,11 @@ Render::Render(std::shared_ptr<MessageBus> messageBus, std::string systemName, s
 Render::~Render()
 {
 	std::cout << "Render is finally shutdown." << std::endl;
+}
+
+const std::string Render::getSystemName()
+{
+	return "Render";
 }
 
 void Render::handleMessages(std::shared_ptr<Message> & message)

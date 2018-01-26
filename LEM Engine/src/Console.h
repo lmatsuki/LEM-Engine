@@ -6,9 +6,10 @@
 class Console : public System
 {
 public:
-	Console(std::shared_ptr<MessageBus> messageBus, std::string systemName);
+	Console(std::shared_ptr<MessageBus> messageBus);
 	~Console();
 
-	void handleMessages(std::shared_ptr<Message> & message);
-	void update();
+	virtual const std::string getSystemName() override;
+	void handleMessages(std::shared_ptr<Message> & message) override;
+	void update() override;
 };

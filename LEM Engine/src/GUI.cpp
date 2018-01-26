@@ -1,7 +1,7 @@
 #include "GUI.h"
 
-GUI::GUI(std::shared_ptr<MessageBus> messageBus, std::string systemName, std::shared_ptr<Graphics> graphicsFramework) 
-	: _graphicsFramework(graphicsFramework), System(messageBus, systemName)
+GUI::GUI(std::shared_ptr<MessageBus> messageBus, std::shared_ptr<Graphics> graphicsFramework) 
+	: _graphicsFramework(graphicsFramework), System(messageBus)
 {
 	//Exception e("Some GUI initializiation error.");
 	//throw (e);
@@ -13,6 +13,11 @@ GUI::GUI(std::shared_ptr<MessageBus> messageBus, std::string systemName, std::sh
 GUI::~GUI()
 {
 	std::cout << "GUI is finally shutdown." << std::endl;
+}
+
+const std::string GUI::getSystemName()
+{
+	return "GUI";
 }
 
 void GUI::handleMessages(std::shared_ptr<Message> & message)

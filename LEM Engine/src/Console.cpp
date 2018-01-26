@@ -1,7 +1,7 @@
 #include "Console.h"
 #include "MessageBus.h"
 
-Console::Console(std::shared_ptr<MessageBus> messageBus, std::string systemName) : System(messageBus, systemName)
+Console::Console(std::shared_ptr<MessageBus> messageBus) : System(messageBus)
 {
 	
 }
@@ -9,6 +9,11 @@ Console::Console(std::shared_ptr<MessageBus> messageBus, std::string systemName)
 Console::~Console()
 {
 	
+}
+
+const std::string Console::getSystemName()
+{
+	return "Console";
 }
 
 void Console::handleMessages(std::shared_ptr<Message> & message)

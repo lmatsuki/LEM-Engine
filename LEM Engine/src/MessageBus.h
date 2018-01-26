@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <iostream>
+#include "UtilityLib.h"
 #include "Message.h"
 //#include "Graphics.h"
 #include "Console.h"
@@ -21,17 +22,17 @@ public:
 	void pollMessages();
 	void postMessage(std::shared_ptr<Message> message);
 
-	// Add a system and system name by string.
+	// Add a system.
 	template <typename T>
-	void addSystem(std::string systemName);
+	void addSystem();
 
-	// Add a system and system name by string, and a required framework.
+	// Add a system and a required framework.
 	template <typename T, typename T2>	
-	void addSystem(std::string systemName, std::shared_ptr<T2> framework);
+	void addSystem(std::shared_ptr<T2> framework);
 
-	// Add a system and system name by string, and two required frameworks.
+	// Add a system and two required frameworks.
 	template <typename T, typename T2, typename T3>
-	void addSystem(std::string systemName, std::shared_ptr<T2> firstFramework, std::shared_ptr<T3> secondFramework);
+	void addSystem(std::shared_ptr<T2> firstFramework, std::shared_ptr<T3> secondFramework);
 
 	// Runs the update function for every system.
 	void updateSystems();

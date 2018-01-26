@@ -6,11 +6,12 @@
 class Render : public System
 {
 public:
-	Render(std::shared_ptr<MessageBus> messageBus, std::string systemName, std::shared_ptr<Graphics> graphicsFramework);
+	Render(std::shared_ptr<MessageBus> messageBus, std::shared_ptr<Graphics> graphicsFramework);
 	~Render();
 
-	void handleMessages(std::shared_ptr<Message> & message);
-	void update();
+	virtual const std::string getSystemName() override;
+	void handleMessages(std::shared_ptr<Message> & message) override;
+	void update() override;
 
 private:
 	std::shared_ptr<Graphics> _graphicsFramework;
