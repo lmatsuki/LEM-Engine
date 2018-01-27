@@ -6,7 +6,10 @@
 #include <map>
 #include <memory>
 #include <iostream>
+#include <vector>
+#include <algorithm>
 #include "Framework.h"
+#include "ImageData.h"
 
 class Graphics : public Framework
 {
@@ -23,8 +26,8 @@ public:
 	/****************** Methods called by Systems ******************/
 	/***************************************************************/
 	bool createMainWindow();
-	bool storeImage(const std::string & path, const std::string & name);
-	bool renderImage(const std::string & name);
+	bool storeImage(const std::string & filename, std::unique_ptr<ImageData> imageData);
+	bool renderImage(const std::string & filename);
 	bool loadImage(const std::string & path);
 
 
@@ -34,12 +37,21 @@ public:
 private:
 	int _screenWidth;
 	int _screenHeight;
+	// Filename to unique_ptr of ImageData
+	std::unique_ptr<std::map<std::string, std::unique_ptr<ImageData>>> _imageDataDict;
+
+	// Filename to pointer of SDL_Texture
 	std::unique_ptr<std::map<std::string, SDL_Texture*>> sdlTextureDict;	
+	// Filename to unique_ptr of SDL_Rect
+	std::unique_ptr<std::map<std::string, std::unique_ptr<SDL_Rect>>> sdlRectDict;
+	// Filenames to render
+	std::vector<std::string> _renderList;
+
 	SDL_Window * gWindow;
 	SDL_Renderer *gRenderer;
 	SDL_Texture *gTexture;
 
-
+	SDL_Rect imagePos;
 
 
 

@@ -32,10 +32,9 @@ void GUI::handleMessages(const std::shared_ptr<Message> & message)
 		}
 		case MessageType::LoadImage:
 		{
-			std::string imagePath = ((ImageMessage*)message.get())->imagePath;
-			std::string fileName = ((ImageMessage*)message.get())->fileName;
-			if (_graphicsFramework.get()->storeImage(imagePath, fileName))
-				_graphicsFramework.get()->renderImage(fileName);
+			std::string filename = ((ImageMessage*)message.get())->imageData->fileName;
+			if (_graphicsFramework.get()->storeImage(filename, std::move(((ImageMessage*)message.get())->imageData)))
+				_graphicsFramework.get()->renderImage(filename);
 			break;
 		}
 	}

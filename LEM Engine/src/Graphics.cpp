@@ -1,6 +1,9 @@
 #include "Graphics.h"
 
-Graphics::Graphics() : _screenWidth(800), _screenHeight(600), sdlTextureDict(std::make_unique<std::map<std::string, SDL_Texture*>>()), gWindow(NULL),
+Graphics::Graphics() : _screenWidth(800), _screenHeight(600), 
+	_imageDataDict(std::make_unique<std::map<std::string, std::unique_ptr<ImageData>>>()),
+	sdlTextureDict(std::make_unique<std::map<std::string, SDL_Texture*>>()), 
+	sdlRectDict(std::make_unique<std::map<std::string, std::unique_ptr<SDL_Rect>>>()), gWindow(NULL),
 	gRenderer(NULL), gTexture(NULL), gInputTextTexture(NULL), textColor({ 0, 0, 0, 0xFF }), gFont(NULL), _textWidth(0), _textHeight(0)	
 {
 
@@ -34,9 +37,7 @@ const StatusCode Graphics::init()
 
 const std::string & Graphics::getFrameworkName()
 {
-	std::string name = "Graphics";
-	return name;
-	//return "Graphics";
+	return "Graphics";
 }
 
 bool Graphics::createMainWindow()
@@ -81,42 +82,38 @@ bool Graphics::createMainWindow()
 	return true;
 }
 
-bool Graphics::storeImage(const std::string & path, const std::string & name)
+bool Graphics::storeImage(const std::string & filename, std::unique_ptr<ImageData> imageData)
 {
-	// Check that the filename doesn't exist in the dictionary
-	const SDL_Texture* sdlTexture = (*sdlTextureDict.get())[name];
-	if (sdlTexture != NULL)
+	// Check that the filename doesn't exist in the dictionary	
+	if ((*_imageDataDict.get())[filename])
 		return false;
 
-	// Try to load the image and store in dictionary
-	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
-	SDL_Texture* loadedTexture = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);
-	if (loadedSurface == NULL || loadedTexture == NULL)
+	// Try to load the image and create the texture
+	SDL_Surface* loadedSurface = IMG_Load(imageData->imagePath.c_str());
+	imageData->texture = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);
+	if (loadedSurface == NULL || imageData->texture == NULL)
 		return false;
 
-	// Store the surface in the dictionary
-	(*sdlTextureDict.get())[name] = loadedTexture;
+	// Store the ImageData in the dictionary
+	(*_imageDataDict.get())[filename] = std::move(imageData);	
 
 	// Get rid of old loaded surface
 	SDL_FreeSurface(loadedSurface);
 	return true;
 }
 
-bool Graphics::renderImage(const std::string & name)
+bool Graphics::renderImage(const std::string & filename)
 {
-	// Get the texture
-	SDL_Texture* sdlTexture = (*sdlTextureDict.get())[name];
-	if (sdlTexture == NULL)
-		return false;
+	// Add to the list of images to render
+	_renderList.push_back(filename);
 
-	//Clear screen
-	SDL_RenderClear(gRenderer);
+	// Sort the list of images
+	std::sort(_renderList.begin(), _renderList.end(),
+		[&](const std::string & a, const std::string & b)
+	{
+		return (*_imageDataDict.get())[a]->zOrder < (*_imageDataDict.get())[b]->zOrder;
+	});
 
-	//Render texture to screen
-	SDL_RenderCopy(gRenderer, sdlTexture, NULL, NULL);
-
-	//Update screen
-	SDL_RenderPresent(gRenderer);
 	return true;
 }
 
@@ -149,13 +146,18 @@ bool Graphics::loadImage(const std::string & path)
 void Graphics::render()
 {
 	//Clear screen
-	//SDL_RenderClear(gRenderer);
+	SDL_RenderClear(gRenderer);
 
-	//Render texture to screen
-	//SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
+	//Render the sorted list of textures to screen
+	SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
+	for (auto filename : _renderList)
+	{
+		SDL_RenderCopy(gRenderer, (*_imageDataDict.get())[filename].get()->texture,
+			NULL, (*_imageDataDict.get())[filename].get()->imagePosition.get());
+	}	
 
 	//Update screen
-	//SDL_RenderPresent(gRenderer);
+	SDL_RenderPresent(gRenderer);
 }
 
 

@@ -54,8 +54,25 @@ bool Game::init()
 	StringMessage bgImageMsg(MessageType::LoadBackground, "Loading a background image.", "Assets/Sprites/hello_world.bmp");
 	_messageBus->postMessage(std::make_shared<StringMessage>(bgImageMsg));
 
-	ImageMessage imageMsg(MessageType::LoadImage, "Loading image.", "Assets/Sprites/preview.png", "preview");
-	_messageBus->postMessage(std::make_shared<ImageMessage>(imageMsg));
+	std::shared_ptr<ImageMessage> imageMsgPtr = std::make_shared<ImageMessage>(MessageType::LoadImage, "Loading first image.", 
+		"Assets/Sprites/preview.png", "preview1", std::make_unique<SDL_Rect>(SDL_Rect{ 0, 0, 300, 300 }), 1);
+	_messageBus->postMessage(imageMsgPtr);
+
+	std::shared_ptr<ImageMessage> imageMsgPtr2 = std::make_shared<ImageMessage>(MessageType::LoadImage, "Loading second image.",
+		"Assets/Sprites/preview.png", "preview2", std::make_unique<SDL_Rect>(SDL_Rect{ 400, 0, 300, 300 }), 1);
+	_messageBus->postMessage(imageMsgPtr2);
+
+	std::shared_ptr<ImageMessage> imageMsgPtr3 = std::make_shared<ImageMessage>(MessageType::LoadImage, "Loading third image.",
+		"Assets/Sprites/preview.png", "preview3", std::make_unique<SDL_Rect>(SDL_Rect{ 400, 400, 300, 300 }), 1);
+	_messageBus->postMessage(imageMsgPtr3);
+
+	std::shared_ptr<ImageMessage> imageMsgPtr4 = std::make_shared<ImageMessage>(MessageType::LoadImage, "Loading fourth image.",
+		"Assets/Sprites/hello_world.bmp", "preview4", std::make_unique<SDL_Rect>(SDL_Rect{ 0, 200, 300, 300 }), 1);
+	_messageBus->postMessage(imageMsgPtr4);
+
+	//ImageMessage imageMsgErroneous(MessageType::LoadImage, "Loading image.",
+	//	"Assets/Sprites/preview.png", "preview", std::make_unique<SDL_Rect>(SDL_Rect{ 0, 0, 300, 300 }), 1);
+	//_messageBus->postMessage(std::make_shared<ImageMessage>(imageMsgErroneous));  // Calling it like this produces error
 
 	//std::shared_ptr<StringMessage> delayedImageMsg = std::make_shared<StringMessage>(MessageType::LoadBackground, "Loading a second background image.", "Assets/Sprites/preview.png");
 	////TimedMilliSecondsMessage timedMsg(MessageType::TimedMilliSecondsEvent, "Loading a background image after 5000ms.", 5000, delayedImageMsg);
