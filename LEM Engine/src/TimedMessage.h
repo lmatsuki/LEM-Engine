@@ -5,7 +5,7 @@
 // The base message struct used to be sent X time later, carries another innerMessage to be executed after specified time has elapsed.
 struct TimedMessage : public Message
 {
-	TimedMessage(MessageType type, std::string consoleMessage, int remainingTime, std::shared_ptr<Message> innerMessage)
+	TimedMessage(const MessageType type, const std::string & consoleMessage, const int remainingTime, const std::shared_ptr<Message> & innerMessage)
 		: remainingTime(remainingTime), innerMessage(innerMessage), toBeDeleted(false), Message(type, consoleMessage)
 	{
 
@@ -19,6 +19,6 @@ struct TimedMessage : public Message
 	}
 
 	int remainingTime;
-	std::shared_ptr<Message> innerMessage;
+	const std::shared_ptr<Message> innerMessage;
 	bool toBeDeleted;
 };

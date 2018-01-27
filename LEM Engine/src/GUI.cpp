@@ -24,10 +24,20 @@ void GUI::handleMessages(const std::shared_ptr<Message> & message)
 {
 	switch (message->type)
 	{
-	case MessageType::LoadBackground:		
-		std::string filePath = ((StringMessage*)message.get())->dataString;
-		_graphicsFramework.get()->loadImage(filePath);
-		break;
+		case MessageType::LoadBackground:	
+		{
+			std::string filePath = ((StringMessage*)message.get())->dataString;
+			_graphicsFramework.get()->loadImage(filePath);
+			break;
+		}
+		case MessageType::LoadImage:
+		{
+			std::string imagePath = ((ImageMessage*)message.get())->imagePath;
+			std::string fileName = ((ImageMessage*)message.get())->fileName;
+			if (_graphicsFramework.get()->storeImage(imagePath, fileName))
+				_graphicsFramework.get()->renderImage(fileName);
+			break;
+		}
 	}
 }
 

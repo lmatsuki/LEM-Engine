@@ -72,8 +72,8 @@ template <typename T>
 std::shared_ptr<T> MessageBus::addFramework()
 {
 	std::shared_ptr<T> framework = std::make_shared<T>();
-	Framework * frameworkPtr = framework.get();
-	Utility::printLn("Added " + framework.get()->getFrameworkName() + " framework to MessageBus.");
+	//Framework * frameworkPtr = framework.get();
+	//Utility::printLn("Added " + frameworkPtr->getFrameworkName() + " framework to MessageBus.");
 	return std::move(framework);
 }
 

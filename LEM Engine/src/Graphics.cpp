@@ -1,6 +1,6 @@
 #include "Graphics.h"
 
-Graphics::Graphics() : _screenWidth(800), _screenHeight(600), gWindow(NULL), 
+Graphics::Graphics() : _screenWidth(800), _screenHeight(600), sdlTextureDict(std::make_unique<std::map<std::string, SDL_Texture*>>()), gWindow(NULL),
 	gRenderer(NULL), gTexture(NULL), gInputTextTexture(NULL), textColor({ 0, 0, 0, 0xFF }), gFont(NULL), _textWidth(0), _textHeight(0)	
 {
 
@@ -34,7 +34,9 @@ const StatusCode Graphics::init()
 
 const std::string & Graphics::getFrameworkName()
 {
-	return "Graphics";
+	std::string name = "Graphics";
+	return name;
+	//return "Graphics";
 }
 
 bool Graphics::createMainWindow()
@@ -79,6 +81,45 @@ bool Graphics::createMainWindow()
 	return true;
 }
 
+bool Graphics::storeImage(const std::string & path, const std::string & name)
+{
+	// Check that the filename doesn't exist in the dictionary
+	const SDL_Texture* sdlTexture = (*sdlTextureDict.get())[name];
+	if (sdlTexture != NULL)
+		return false;
+
+	// Try to load the image and store in dictionary
+	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
+	SDL_Texture* loadedTexture = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);
+	if (loadedSurface == NULL || loadedTexture == NULL)
+		return false;
+
+	// Store the surface in the dictionary
+	(*sdlTextureDict.get())[name] = loadedTexture;
+
+	// Get rid of old loaded surface
+	SDL_FreeSurface(loadedSurface);
+	return true;
+}
+
+bool Graphics::renderImage(const std::string & name)
+{
+	// Get the texture
+	SDL_Texture* sdlTexture = (*sdlTextureDict.get())[name];
+	if (sdlTexture == NULL)
+		return false;
+
+	//Clear screen
+	SDL_RenderClear(gRenderer);
+
+	//Render texture to screen
+	SDL_RenderCopy(gRenderer, sdlTexture, NULL, NULL);
+
+	//Update screen
+	SDL_RenderPresent(gRenderer);
+	return true;
+}
+
 bool Graphics::loadImage(const std::string & path)
 {
 	//Load image at specified path
@@ -108,13 +149,13 @@ bool Graphics::loadImage(const std::string & path)
 void Graphics::render()
 {
 	//Clear screen
-	SDL_RenderClear(gRenderer);
+	//SDL_RenderClear(gRenderer);
 
 	//Render texture to screen
-	SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
+	//SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
 
 	//Update screen
-	SDL_RenderPresent(gRenderer);
+	//SDL_RenderPresent(gRenderer);
 }
 
 

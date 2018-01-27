@@ -6,6 +6,7 @@
 #include "StringMessage.h"
 #include "TimedMilliSecondsMessage.h"
 #include "TimedSecondsMessage.h"
+#include "ImageMessage.h"
 #include "Exception.h"
 
 class MessageBus;

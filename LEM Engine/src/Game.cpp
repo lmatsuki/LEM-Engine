@@ -51,13 +51,16 @@ bool Game::init()
 	_messageBus->postMessage(std::make_shared<Message>(consoleMsg));
 	Message windowMsg(MessageType::CreateMainWindow, "Creating main window.");
 	_messageBus->postMessage(std::make_shared<Message>(windowMsg));
-	StringMessage imageMsg(MessageType::LoadBackground, "Loading a background image.", "Assets/Sprites/hello_world.bmp");
-	_messageBus->postMessage(std::make_shared<StringMessage>(imageMsg));
+	StringMessage bgImageMsg(MessageType::LoadBackground, "Loading a background image.", "Assets/Sprites/hello_world.bmp");
+	_messageBus->postMessage(std::make_shared<StringMessage>(bgImageMsg));
 
-	std::shared_ptr<StringMessage> delayedImageMsg = std::make_shared<StringMessage>(MessageType::LoadBackground, "Loading a second background image.", "Assets/Sprites/preview.png");
-	//TimedMilliSecondsMessage timedMsg(MessageType::TimedMilliSecondsEvent, "Loading a background image after 5000ms.", 5000, delayedImageMsg);
-	TimedSecondsMessage timedMsg(MessageType::TimedSecondsEvent, "Loading a background image after 3 seconds.", 3, delayedImageMsg);
-	_messageBus->postMessage(std::make_shared<TimedSecondsMessage>(timedMsg));
+	ImageMessage imageMsg(MessageType::LoadImage, "Loading image.", "Assets/Sprites/preview.png", "preview");
+	_messageBus->postMessage(std::make_shared<ImageMessage>(imageMsg));
+
+	//std::shared_ptr<StringMessage> delayedImageMsg = std::make_shared<StringMessage>(MessageType::LoadBackground, "Loading a second background image.", "Assets/Sprites/preview.png");
+	////TimedMilliSecondsMessage timedMsg(MessageType::TimedMilliSecondsEvent, "Loading a background image after 5000ms.", 5000, delayedImageMsg);
+	//TimedSecondsMessage timedMsg(MessageType::TimedSecondsEvent, "Loading a background image after 3 seconds.", 3, delayedImageMsg);
+	//_messageBus->postMessage(std::make_shared<TimedSecondsMessage>(timedMsg));
 
 	//Message quitMsg(MessageType::QuitGame, "Quit application.");
 	//postMessage(std::make_unique<Message>(quitMsg));
