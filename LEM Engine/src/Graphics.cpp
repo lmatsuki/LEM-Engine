@@ -40,10 +40,10 @@ const std::string & Graphics::getFrameworkName()
 	return "Graphics";
 }
 
-bool Graphics::createMainWindow()
+bool Graphics::createMainWindow(const std::string & windowName)
 {
 	//Create window
-	gWindow = SDL_CreateWindow("LEM Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, _screenWidth, _screenHeight, SDL_WINDOW_SHOWN);
+	gWindow = SDL_CreateWindow(windowName.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, _screenWidth, _screenHeight, SDL_WINDOW_SHOWN);
 	if (gWindow == NULL)
 	{
 		return false;
@@ -115,6 +115,19 @@ bool Graphics::renderImage(const std::string & filename)
 	});
 
 	return true;
+}
+
+// Find and remove the image from the renderList by the filename.
+bool Graphics::unrenderImage(const std::string & filename)
+{
+	auto it = std::find(_renderList.begin(), _renderList.end(), filename);
+	if (it != _renderList.end())
+	{
+		_renderList.erase(it);
+		return true;
+	}		
+
+	return false;
 }
 
 bool Graphics::loadImage(const std::string & path)

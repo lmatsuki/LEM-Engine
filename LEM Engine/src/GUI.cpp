@@ -37,6 +37,12 @@ void GUI::handleMessages(const std::shared_ptr<Message> & message)
 				_graphicsFramework.get()->renderImage(filename);
 			break;
 		}
+		case MessageType::RemoveImage:
+		{
+			std::string filePath = ((StringMessage*)message.get())->dataString;
+			_graphicsFramework.get()->unrenderImage(filePath);
+			break;
+		}			
 	}
 }
 

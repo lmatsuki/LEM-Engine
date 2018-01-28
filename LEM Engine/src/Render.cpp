@@ -21,7 +21,8 @@ void Render::handleMessages(const std::shared_ptr<Message> & message)
 	switch (message->type)
 	{
 	case MessageType::CreateMainWindow:
-		_graphicsFramework.get()->createMainWindow();
+		std::string windowName = ((StringMessage*)message.get())->dataString;
+		_graphicsFramework.get()->createMainWindow(windowName);
 		break;
 	}
 }

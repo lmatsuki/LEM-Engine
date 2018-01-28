@@ -25,9 +25,11 @@ public:
 	/***************************************************************/
 	/****************** Methods called by Systems ******************/
 	/***************************************************************/
-	bool createMainWindow();
+	bool createMainWindow(const std::string & windowName = "");
 	bool storeImage(const std::string & filename, std::unique_ptr<ImageData> imageData);
 	bool renderImage(const std::string & filename);
+	// Find and remove the image from the renderList by the filename.
+	bool unrenderImage(const std::string & filename);
 	bool loadImage(const std::string & path);
 
 
@@ -50,8 +52,6 @@ private:
 	SDL_Window * gWindow;
 	SDL_Renderer *gRenderer;
 	SDL_Texture *gTexture;
-
-	SDL_Rect imagePos;
 
 
 

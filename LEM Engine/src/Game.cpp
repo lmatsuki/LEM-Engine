@@ -49,8 +49,8 @@ bool Game::init()
 
 	Message consoleMsg(MessageType::Console, "Testing console printing.");
 	_messageBus->postMessage(std::make_shared<Message>(consoleMsg));
-	Message windowMsg(MessageType::CreateMainWindow, "Creating main window.");
-	_messageBus->postMessage(std::make_shared<Message>(windowMsg));
+	StringMessage windowMsg(MessageType::CreateMainWindow, "Creating main window.", "LEM ENGINE");
+	_messageBus->postMessage(std::make_shared<StringMessage>(windowMsg));
 	StringMessage bgImageMsg(MessageType::LoadBackground, "Loading a background image.", "Assets/Sprites/hello_world.bmp");
 	_messageBus->postMessage(std::make_shared<StringMessage>(bgImageMsg));
 
@@ -69,6 +69,9 @@ bool Game::init()
 	std::shared_ptr<ImageMessage> imageMsgPtr4 = std::make_shared<ImageMessage>(MessageType::LoadImage, "Loading fourth image.",
 		"Assets/Sprites/hello_world.bmp", "preview4", std::make_unique<SDL_Rect>(SDL_Rect{ 0, 200, 300, 300 }), 1);
 	_messageBus->postMessage(imageMsgPtr4);
+
+	StringMessage removeImageMsg(MessageType::RemoveImage, "Removing an image.", "preview4");
+	_messageBus->postMessage(std::make_shared<StringMessage>(removeImageMsg));
 
 	//ImageMessage imageMsgErroneous(MessageType::LoadImage, "Loading image.",
 	//	"Assets/Sprites/preview.png", "preview", std::make_unique<SDL_Rect>(SDL_Rect{ 0, 0, 300, 300 }), 1);

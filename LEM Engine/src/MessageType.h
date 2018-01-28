@@ -7,6 +7,7 @@ enum class MessageType
 	// GUI System	
 	LoadBackground,
 	LoadImage,
+	RemoveImage,
 
 	// Render System
 	CreateMainWindow,
