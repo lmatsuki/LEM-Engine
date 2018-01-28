@@ -41,11 +41,6 @@ private:
 	int _screenHeight;
 	// Filename to unique_ptr of ImageData
 	std::unique_ptr<std::map<std::string, std::unique_ptr<ImageData>>> _imageDataDict;
-
-	// Filename to pointer of SDL_Texture
-	std::unique_ptr<std::map<std::string, SDL_Texture*>> sdlTextureDict;	
-	// Filename to unique_ptr of SDL_Rect
-	std::unique_ptr<std::map<std::string, std::unique_ptr<SDL_Rect>>> sdlRectDict;
 	// Filenames to render
 	std::vector<std::string> _renderList;
 

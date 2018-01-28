@@ -2,15 +2,20 @@
 
 Graphics::Graphics() : _screenWidth(800), _screenHeight(600), 
 	_imageDataDict(std::make_unique<std::map<std::string, std::unique_ptr<ImageData>>>()),
-	sdlTextureDict(std::make_unique<std::map<std::string, SDL_Texture*>>()), 
-	sdlRectDict(std::make_unique<std::map<std::string, std::unique_ptr<SDL_Rect>>>()), gWindow(NULL),
-	gRenderer(NULL), gTexture(NULL), gInputTextTexture(NULL), textColor({ 0, 0, 0, 0xFF }), gFont(NULL), _textWidth(0), _textHeight(0)	
+	gWindow(NULL), gRenderer(NULL), gTexture(NULL), 
+	gInputTextTexture(NULL), textColor({ 0, 0, 0, 0xFF }), gFont(NULL), _textWidth(0), _textHeight(0)	
 {
 
 }
 
 Graphics::~Graphics()
 {
+	// Destroy all stored textures
+	for (auto const & texture : (*_imageDataDict.get()))
+	{
+		SDL_DestroyTexture(texture.second.get()->texture);
+	}
+
 	//Destroy window   
 	SDL_DestroyRenderer(gRenderer);
 	SDL_DestroyWindow(gWindow);
