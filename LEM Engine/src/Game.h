@@ -5,8 +5,8 @@
 #include <stack>
 #include <SDL.h>
 
-#include "Input.h"
-#include "Graphics.h"
+#include "FInput.h"
+#include "FGraphics.h"
 #include "AssetManager.h"
 
 class GameState;

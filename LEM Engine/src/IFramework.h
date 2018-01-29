@@ -8,11 +8,11 @@
 
 class MessageBus;
 
-class Framework
+class IFramework
 {
 public:
-	Framework();
-	virtual ~Framework();
+	IFramework();
+	virtual ~IFramework();
 
 	virtual const std::string & getFrameworkName() = 0;
 private:

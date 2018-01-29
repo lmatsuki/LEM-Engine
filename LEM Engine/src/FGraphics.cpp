@@ -1,6 +1,6 @@
-#include "Graphics.h"
+#include "FGraphics.h"
 
-Graphics::Graphics() : _screenWidth(800), _screenHeight(600), 
+FGraphics::FGraphics() : _screenWidth(800), _screenHeight(600),
 	_imageDataDict(std::make_unique<std::map<std::string, std::unique_ptr<ImageData>>>()),
 	gWindow(NULL), gRenderer(NULL), gTexture(NULL), 
 	gInputTextTexture(NULL), textColor({ 0, 0, 0, 0xFF }), gFont(NULL), _textWidth(0), _textHeight(0)	
@@ -8,7 +8,7 @@ Graphics::Graphics() : _screenWidth(800), _screenHeight(600),
 
 }
 
-Graphics::~Graphics()
+FGraphics::~FGraphics()
 {
 	// Destroy all stored textures
 	for (auto const & texture : (*_imageDataDict.get()))
@@ -28,7 +28,7 @@ Graphics::~Graphics()
 	IMG_Quit();
 }
 
-const StatusCode Graphics::init()
+const StatusCode FGraphics::init()
 {
 	// Initialize SDL VIDEO
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -40,12 +40,12 @@ const StatusCode Graphics::init()
 	return StatusCode::Success;
 }
 
-const std::string & Graphics::getFrameworkName()
+const std::string & FGraphics::getFrameworkName()
 {
 	return "Graphics";
 }
 
-bool Graphics::createMainWindow(const std::string & windowName)
+bool FGraphics::createMainWindow(const std::string & windowName)
 {
 	//Create window
 	gWindow = SDL_CreateWindow(windowName.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, _screenWidth, _screenHeight, SDL_WINDOW_SHOWN);
@@ -87,7 +87,7 @@ bool Graphics::createMainWindow(const std::string & windowName)
 	return true;
 }
 
-bool Graphics::storeImage(const std::string & filename, std::unique_ptr<ImageData> imageData)
+bool FGraphics::storeImage(const std::string & filename, std::unique_ptr<ImageData> imageData)
 {
 	// Check that the filename doesn't exist in the dictionary	
 	if ((*_imageDataDict.get())[filename])
@@ -107,7 +107,7 @@ bool Graphics::storeImage(const std::string & filename, std::unique_ptr<ImageDat
 	return true;
 }
 
-bool Graphics::renderImage(const std::string & filename)
+bool FGraphics::renderImage(const std::string & filename)
 {
 	// Add to the list of images to render
 	_renderList.push_back(filename);
@@ -123,7 +123,7 @@ bool Graphics::renderImage(const std::string & filename)
 }
 
 // Find and remove the image from the renderList by the filename.
-bool Graphics::unrenderImage(const std::string & filename)
+bool FGraphics::unrenderImage(const std::string & filename)
 {
 	auto it = std::find(_renderList.begin(), _renderList.end(), filename);
 	if (it != _renderList.end())
@@ -135,7 +135,7 @@ bool Graphics::unrenderImage(const std::string & filename)
 	return false;
 }
 
-bool Graphics::loadImage(const std::string & path)
+bool FGraphics::loadImage(const std::string & path)
 {
 	//Load image at specified path
 	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
@@ -161,7 +161,7 @@ bool Graphics::loadImage(const std::string & path)
 	return true;
 }
 
-void Graphics::render()
+void FGraphics::render()
 {
 	//Clear screen
 	SDL_RenderClear(gRenderer);
@@ -203,7 +203,7 @@ void Graphics::render()
 
 
 
-bool Graphics::load()
+bool FGraphics::load()
 {
 	//Load image at specified path
 	SDL_Surface* loadedSurface = IMG_Load("Assets/Sprites/preview.png");
@@ -235,7 +235,7 @@ bool Graphics::load()
 	return true;
 }
 
-bool Graphics::loadText(std::string inputText)
+bool FGraphics::loadText(std::string inputText)
 {
 	// Load the font
 	gFont = TTF_OpenFont("Assets/Fonts/Roboto-Medium.ttf", 28);
@@ -276,19 +276,19 @@ bool Graphics::loadText(std::string inputText)
 	return false;
 }
 
-int Graphics::getTextWidth()
+int FGraphics::getTextWidth()
 {
 	return _textWidth;
 }
 
-int Graphics::getTextHeight()
+int FGraphics::getTextHeight()
 {
 	return _textHeight;
 }
 
 
 
-void Graphics::renderText(std::string inputText, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip)
+void FGraphics::renderText(std::string inputText, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip)
 {
 	//Text is not empty
 	if (inputText != "")
@@ -317,12 +317,12 @@ void Graphics::renderText(std::string inputText, SDL_Rect* clip, double angle, S
 	SDL_RenderCopyEx(gRenderer, gInputTextTexture, clip, &renderQuad, angle, center, flip);
 }
 
-void Graphics::updateScreen()
+void FGraphics::updateScreen()
 {
 	SDL_RenderPresent(gRenderer);
 }
 
-void Graphics::unload()
+void FGraphics::unload()
 {
 	//Free loaded image
 	SDL_DestroyTexture(gTexture);

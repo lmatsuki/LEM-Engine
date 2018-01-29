@@ -1,13 +1,12 @@
 #pragma once
 
-#include <iostream>
-#include "System.h"
+#include "ISystem.h"
 
-class Console : public System
+class SInput : public ISystem
 {
 public:
-	Console(std::shared_ptr<MessageBus> messageBus);
-	~Console();
+	SInput(std::shared_ptr<MessageBus> messageBus);
+	~SInput();
 
 	virtual const std::string getSystemName() override;
 	void handleMessages(const std::shared_ptr<Message> & message) override;

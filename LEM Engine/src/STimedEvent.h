@@ -2,14 +2,14 @@
 
 #include <vector>
 #include <algorithm>
-#include "System.h"
+#include "ISystem.h"
 #include "ClockLib.h"
 
-class TimedEvent : public System
+class STimedEvent : public ISystem
 {
 public:
-	TimedEvent(std::shared_ptr<MessageBus> messageBus);
-	~TimedEvent();
+	STimedEvent(std::shared_ptr<MessageBus> messageBus);
+	~STimedEvent();
 
 	virtual const std::string getSystemName() override;
 	void handleMessages(const std::shared_ptr<Message> & message) override;

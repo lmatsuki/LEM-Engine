@@ -8,14 +8,14 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include "Framework.h"
+#include "IFramework.h"
 #include "ImageData.h"
 
-class Graphics : public Framework
+class FGraphics : public IFramework
 {
 public:
-	Graphics();
-	~Graphics();
+	FGraphics();
+	~FGraphics();
 
 	// Initialize the graphics engine
 	const StatusCode init();

@@ -11,11 +11,11 @@
 
 class MessageBus;
 
-class System
+class ISystem
 {
 public:
-	System(std::shared_ptr<MessageBus> messageBus);
-	virtual ~System();
+	ISystem(std::shared_ptr<MessageBus> messageBus);
+	virtual ~ISystem();
 
 	virtual const std::string getSystemName() = 0;
 	virtual void handleMessages(const std::shared_ptr<Message> & message) = 0;

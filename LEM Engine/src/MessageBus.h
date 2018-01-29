@@ -4,11 +4,11 @@
 #include <iostream>
 #include "UtilityLib.h"
 #include "Message.h"
-//#include "Graphics.h"
-#include "Console.h"
-#include "Render.h"
-#include "GUI.h"
-#include "TimedEvent.h"
+#include "SInput.h"
+#include "SConsole.h"
+#include "SRender.h"
+#include "SGUI.h"
+#include "STimedEvent.h"
 
 class Game;
 
@@ -44,5 +44,5 @@ public:
 private:
 	std::weak_ptr<Game> _game;							// Reference to Game Logic
 	std::vector<std::shared_ptr<Message>> _messages;	// References to queued messages
-	std::vector<std::unique_ptr<System>> _systems;		// References to systems	
+	std::vector<std::unique_ptr<ISystem>> _systems;		// References to systems	
 };

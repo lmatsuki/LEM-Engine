@@ -2,13 +2,13 @@
 
 #include <SDL.h>
 #include <iostream>
-#include "Framework.h"
+#include "IFramework.h"
 
-class Input : public Framework
+class FInput : public IFramework
 {
 public:
-	Input();
-	~Input();
+	FInput();
+	~FInput();
 
 	virtual const std::string & getFrameworkName() override;
 

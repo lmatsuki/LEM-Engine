@@ -1,17 +1,17 @@
-#include "Input.h"
+#include "FInput.h"
 
-Input::Input() : _pendingExit(false), _inputText(""), _displayInputText(false), _inputFinished(false),
+FInput::FInput() : _pendingExit(false), _inputText(""), _displayInputText(false), _inputFinished(false),
 	_inputChanged(false)
 {
 
 }
 
-Input::~Input()
+FInput::~FInput()
 {
 	
 }
 
-const std::string & Input::getFrameworkName()
+const std::string & FInput::getFrameworkName()
 {
 	return "Input";
 }
@@ -27,7 +27,7 @@ const std::string & Input::getFrameworkName()
 
 
 
-void Input::update()
+void FInput::update()
 {
 	SDL_Event e;
 	while (SDL_PollEvent(&e) != 0)
@@ -114,17 +114,17 @@ void Input::update()
 	}
 }
 
-bool Input::exitScene()
+bool FInput::exitScene()
 {
 	return _pendingExit;
 }
 
-std::string Input::getInputText()
+std::string FInput::getInputText()
 {
 	return _inputText;
 }
 
-void Input::toggleInputState(const bool toggle)
+void FInput::toggleInputState(const bool toggle)
 {
 	if (toggle)
 		SDL_StartTextInput();
@@ -132,37 +132,37 @@ void Input::toggleInputState(const bool toggle)
 		SDL_StopTextInput();
 }
 
-void Input::clearInputText()
+void FInput::clearInputText()
 {
 	_inputText = "";
 }
 
-void Input::toggleDisplayInputText(const bool toggle)
+void FInput::toggleDisplayInputText(const bool toggle)
 {
 	_displayInputText = toggle;
 }
 
-bool Input::getDisplayInputText()
+bool FInput::getDisplayInputText()
 {
 	return _displayInputText;
 }
 
-void Input::setInputFinished(const bool finished)
+void FInput::setInputFinished(const bool finished)
 {
 	_inputFinished = finished;
 }
 
-bool Input::getInputFinished()
+bool FInput::getInputFinished()
 {
 	return _inputFinished;
 }
 
-bool Input::getInputChanged()
+bool FInput::getInputChanged()
 {
 	return _inputChanged;
 }
 
-void Input::setInputChanged(const bool changed)
+void FInput::setInputChanged(const bool changed)
 {
 	_inputChanged = changed;
 }
