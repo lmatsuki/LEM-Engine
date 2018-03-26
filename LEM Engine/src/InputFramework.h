@@ -11,15 +11,18 @@ public:
 	~InputFramework();
 
 	virtual const std::string & getFrameworkName() override;
+	const std::vector<std::unique_ptr<SDL_Event>> & getQueuedInputEvents();
+	void clearQueuedInputEvents();
+	void update();
 
-
+private:
+	std::vector<std::unique_ptr<SDL_Event>> _queuedInputEvents;
 
 
 
 
 
 	// Legacy code //
-	void update();
 	bool exitScene();
 	std::string getInputText();
 	void toggleInputState(const bool toggle = false);

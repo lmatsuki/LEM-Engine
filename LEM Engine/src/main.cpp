@@ -34,7 +34,7 @@ int main(int, char**)
 	if (game.get()->init())
 		game.get()->run();
 
-	std::cin.get();
+	//std::cin.get();
 
 
 	

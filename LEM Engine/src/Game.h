@@ -28,7 +28,6 @@ public:
 
 	void handleMessages(const Message & message);
 
-
 private:
 	bool _running;
 	int _framesPerSecond; // Not const to allow changing during Play mode via editor.

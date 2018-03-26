@@ -2,6 +2,8 @@
 
 #include <memory>
 #include <iostream>
+#include <map>
+#include <vector>
 #include "Message.h"
 #include "Exception.h"
 #include "StatusCode.h"

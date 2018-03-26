@@ -1,7 +1,7 @@
 #include "InputSystem.h"
 
-InputSystem::InputSystem(std::shared_ptr<MessageBus> messageBus)
-	: ISystem(messageBus)
+InputSystem::InputSystem(std::shared_ptr<MessageBus> messageBus, std::shared_ptr<InputFramework> inputFramework)
+	: _inputFramework(inputFramework), ISystem(messageBus)
 {
 
 }
@@ -31,5 +31,18 @@ void InputSystem::handleMessages(const std::shared_ptr<Message> & message)
 
 void InputSystem::update()
 {
-	
+	_inputFramework.get()->update();
+
+	// Process the queue input event
+	for (auto& event : _inputFramework.get()->getQueuedInputEvents())
+	{
+		if (event->type == SDL_QUIT)
+		{
+			Message quitMsg(MessageType::QuitGame, "Quitting game.");
+			postMessage(std::make_shared<Message>(quitMsg));
+		}
+	}
+
+	// Clear the input event queue
+	_inputFramework.get()->clearQueuedInputEvents();
 }

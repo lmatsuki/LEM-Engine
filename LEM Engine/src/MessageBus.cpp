@@ -19,10 +19,11 @@ bool MessageBus::init()
 
 	// Create Frameworks that are shared across multiple systems
 	std::shared_ptr<GraphicsFramework> graphicsFramework = addFramework<GraphicsFramework>();
+	std::shared_ptr<InputFramework> inputFramework = addFramework<InputFramework>();
 
 
 	// Add systems to the message bus
-	addSystem<InputSystem>();
+	addSystem<InputSystem>(inputFramework);
 	addSystem<ConsoleSystem>();
 	addSystem<RenderSystem>(graphicsFramework);
 	addSystem<GUISystem>(graphicsFramework);
