@@ -4,11 +4,11 @@
 #include <iostream>
 #include "UtilityLib.h"
 #include "Message.h"
-#include "SInput.h"
-#include "SConsole.h"
-#include "SRender.h"
-#include "SGUI.h"
-#include "STimedEvent.h"
+#include "InputSystem.h"
+#include "ConsoleSystem.h"
+#include "RenderSystem.h"
+#include "GUISystem.h"
+#include "TimedEventSystem.h"
 
 class Game;
 

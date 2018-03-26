@@ -4,11 +4,11 @@
 #include <iostream>
 #include "IFramework.h"
 
-class FInput : public IFramework
+class InputFramework : public IFramework
 {
 public:
-	FInput();
-	~FInput();
+	InputFramework();
+	~InputFramework();
 
 	virtual const std::string & getFrameworkName() override;
 

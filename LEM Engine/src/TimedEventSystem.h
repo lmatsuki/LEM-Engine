@@ -5,11 +5,11 @@
 #include "ISystem.h"
 #include "ClockLib.h"
 
-class STimedEvent : public ISystem
+class TimedEventSystem : public ISystem
 {
 public:
-	STimedEvent(std::shared_ptr<MessageBus> messageBus);
-	~STimedEvent();
+	TimedEventSystem(std::shared_ptr<MessageBus> messageBus);
+	~TimedEventSystem();
 
 	virtual const std::string getSystemName() override;
 	void handleMessages(const std::shared_ptr<Message> & message) override;

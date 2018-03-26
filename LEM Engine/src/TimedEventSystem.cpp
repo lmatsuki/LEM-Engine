@@ -1,21 +1,21 @@
-#include "STimedEvent.h"
+#include "TimedEventSystem.h"
 #include "MessageBus.h"
 
-STimedEvent::STimedEvent(std::shared_ptr<MessageBus> messageBus)
+TimedEventSystem::TimedEventSystem(std::shared_ptr<MessageBus> messageBus)
 	: _lastMilliSeconds(0), ISystem(messageBus)
 {
 }
 
-STimedEvent::~STimedEvent()
+TimedEventSystem::~TimedEventSystem()
 {
 }
 
-const std::string STimedEvent::getSystemName()
+const std::string TimedEventSystem::getSystemName()
 {
-	return "TimedEvent";
+	return "Timed Event";
 }
 
-void STimedEvent::handleMessages(const std::shared_ptr<Message>& message)
+void TimedEventSystem::handleMessages(const std::shared_ptr<Message>& message)
 {
 	switch (message->type)
 	{
@@ -27,7 +27,7 @@ void STimedEvent::handleMessages(const std::shared_ptr<Message>& message)
 	}
 }
 
-void STimedEvent::update()
+void TimedEventSystem::update()
 {
 	// Update the timer
 	int elapsedTime = Clock::getTimeInMilliSeconds() - _lastMilliSeconds;
@@ -59,7 +59,7 @@ void STimedEvent::update()
 	}), _timedEvents.end());
 }
 
-void STimedEvent::handleTimedMessages(std::shared_ptr<TimedMessage> & message)
+void TimedEventSystem::handleTimedMessages(std::shared_ptr<TimedMessage> & message)
 {
 	// Send event to message bus
 	postMessage(message->innerMessage);

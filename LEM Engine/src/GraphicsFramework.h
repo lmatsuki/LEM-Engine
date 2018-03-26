@@ -11,11 +11,11 @@
 #include "IFramework.h"
 #include "ImageData.h"
 
-class FGraphics : public IFramework
+class GraphicsFramework : public IFramework
 {
 public:
-	FGraphics();
-	~FGraphics();
+	GraphicsFramework();
+	~GraphicsFramework();
 
 	// Initialize the graphics engine
 	const StatusCode init();

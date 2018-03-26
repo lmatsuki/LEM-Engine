@@ -1,17 +1,17 @@
-#include "FInput.h"
+#include "InputFramework.h"
 
-FInput::FInput() : _pendingExit(false), _inputText(""), _displayInputText(false), _inputFinished(false),
+InputFramework::InputFramework() : _pendingExit(false), _inputText(""), _displayInputText(false), _inputFinished(false),
 	_inputChanged(false)
 {
 
 }
 
-FInput::~FInput()
+InputFramework::~InputFramework()
 {
 	
 }
 
-const std::string & FInput::getFrameworkName()
+const std::string & InputFramework::getFrameworkName()
 {
 	return "Input";
 }
@@ -27,7 +27,7 @@ const std::string & FInput::getFrameworkName()
 
 
 
-void FInput::update()
+void InputFramework::update()
 {
 	SDL_Event e;
 	while (SDL_PollEvent(&e) != 0)
@@ -114,17 +114,17 @@ void FInput::update()
 	}
 }
 
-bool FInput::exitScene()
+bool InputFramework::exitScene()
 {
 	return _pendingExit;
 }
 
-std::string FInput::getInputText()
+std::string InputFramework::getInputText()
 {
 	return _inputText;
 }
 
-void FInput::toggleInputState(const bool toggle)
+void InputFramework::toggleInputState(const bool toggle)
 {
 	if (toggle)
 		SDL_StartTextInput();
@@ -132,37 +132,37 @@ void FInput::toggleInputState(const bool toggle)
 		SDL_StopTextInput();
 }
 
-void FInput::clearInputText()
+void InputFramework::clearInputText()
 {
 	_inputText = "";
 }
 
-void FInput::toggleDisplayInputText(const bool toggle)
+void InputFramework::toggleDisplayInputText(const bool toggle)
 {
 	_displayInputText = toggle;
 }
 
-bool FInput::getDisplayInputText()
+bool InputFramework::getDisplayInputText()
 {
 	return _displayInputText;
 }
 
-void FInput::setInputFinished(const bool finished)
+void InputFramework::setInputFinished(const bool finished)
 {
 	_inputFinished = finished;
 }
 
-bool FInput::getInputFinished()
+bool InputFramework::getInputFinished()
 {
 	return _inputFinished;
 }
 
-bool FInput::getInputChanged()
+bool InputFramework::getInputChanged()
 {
 	return _inputChanged;
 }
 
-void FInput::setInputChanged(const bool changed)
+void InputFramework::setInputChanged(const bool changed)
 {
 	_inputChanged = changed;
 }

@@ -18,15 +18,15 @@ bool MessageBus::init()
 	// ********************************************************* //
 
 	// Create Frameworks that are shared across multiple systems
-	std::shared_ptr<FGraphics> graphicsFramework = addFramework<FGraphics>();
+	std::shared_ptr<GraphicsFramework> graphicsFramework = addFramework<GraphicsFramework>();
 
 
 	// Add systems to the message bus
-	addSystem<SInput>();
-	addSystem<SConsole>();
-	addSystem<SRender>(graphicsFramework);
-	addSystem<SGUI>(graphicsFramework);
-	addSystem<STimedEvent>();
+	addSystem<InputSystem>();
+	addSystem<ConsoleSystem>();
+	addSystem<RenderSystem>(graphicsFramework);
+	addSystem<GUISystem>(graphicsFramework);
+	addSystem<TimedEventSystem>();
 
 
 
@@ -82,21 +82,21 @@ template<typename T>
 void MessageBus::addSystem()
 {
 	_systems.push_back(std::make_unique<T>(std::shared_ptr<MessageBus>(shared_from_this())));
-	Utility::printLn("Added " + _systems.back()->getSystemName() + " system to MessageBus.");
+	Utility::printLn("Added " + _systems.back()->getSystemName() + " system to the Message Bus.");
 }
 
 template <typename T, typename T2>
 void MessageBus::addSystem(std::shared_ptr<T2> & framework)
 {
 	_systems.push_back(std::make_unique<T>(std::shared_ptr<MessageBus>(shared_from_this()), framework));
-	Utility::printLn("Added " + _systems.back()->getSystemName() + " system to MessageBus.");
+	Utility::printLn("Added " + _systems.back()->getSystemName() + " system to the Message Bus.");
 }
 
 template <typename T, typename T2, typename T3>
 void MessageBus::addSystem(std::shared_ptr<T2> & firstFramework, std::shared_ptr<T3> & secondFramework)
 {
 	_systems.push_back(std::make_unique<T>(std::shared_ptr<MessageBus>(shared_from_this()), firstFramework, secondFramework));
-	Utility::printLn("Added " + _systems.back()->getSystemName() + " system to MessageBus.");
+	Utility::printLn("Added " + _systems.back()->getSystemName() + " system to the Message Bus.");
 }
 
 // Runs the update function for every system.

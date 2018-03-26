@@ -1,22 +1,22 @@
-#include "SRender.h"
+#include "RenderSystem.h"
 
-SRender::SRender(std::shared_ptr<MessageBus> messageBus, std::shared_ptr<FGraphics> graphicsFramework)
+RenderSystem::RenderSystem(std::shared_ptr<MessageBus> messageBus, std::shared_ptr<GraphicsFramework> graphicsFramework)
 	: _graphicsFramework(graphicsFramework), ISystem(messageBus)
 {
 
 }
 
-SRender::~SRender()
+RenderSystem::~RenderSystem()
 {
-	std::cout << "SRender is finally shutdown." << std::endl;
+	std::cout << "Render is finally shutdown." << std::endl;
 }
 
-const std::string SRender::getSystemName()
+const std::string RenderSystem::getSystemName()
 {
-	return "SRender";
+	return "Render";
 }
 
-void SRender::handleMessages(const std::shared_ptr<Message> & message)
+void RenderSystem::handleMessages(const std::shared_ptr<Message> & message)
 {
 	switch (message->type)
 	{
@@ -48,7 +48,7 @@ void SRender::handleMessages(const std::shared_ptr<Message> & message)
 	}
 }
 
-void SRender::update()
+void RenderSystem::update()
 {
 	_graphicsFramework.get()->render();
 }

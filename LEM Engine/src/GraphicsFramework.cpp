@@ -1,6 +1,6 @@
-#include "FGraphics.h"
+#include "GraphicsFramework.h"
 
-FGraphics::FGraphics() : _screenWidth(800), _screenHeight(600),
+GraphicsFramework::GraphicsFramework() : _screenWidth(800), _screenHeight(600),
 	_imageDataDict(std::make_unique<std::map<std::string, std::unique_ptr<ImageData>>>()),
 	gWindow(NULL), gRenderer(NULL), gTexture(NULL), 
 	gInputTextTexture(NULL), textColor({ 0, 0, 0, 0xFF }), gFont(NULL), _textWidth(0), _textHeight(0)	
@@ -8,7 +8,7 @@ FGraphics::FGraphics() : _screenWidth(800), _screenHeight(600),
 
 }
 
-FGraphics::~FGraphics()
+GraphicsFramework::~GraphicsFramework()
 {
 	// Destroy all stored textures
 	for (auto const & texture : (*_imageDataDict.get()))
@@ -28,7 +28,7 @@ FGraphics::~FGraphics()
 	IMG_Quit();
 }
 
-const StatusCode FGraphics::init()
+const StatusCode GraphicsFramework::init()
 {
 	// Initialize SDL VIDEO
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -40,12 +40,12 @@ const StatusCode FGraphics::init()
 	return StatusCode::Success;
 }
 
-const std::string & FGraphics::getFrameworkName()
+const std::string & GraphicsFramework::getFrameworkName()
 {
 	return "Graphics";
 }
 
-bool FGraphics::createMainWindow(const std::string & windowName)
+bool GraphicsFramework::createMainWindow(const std::string & windowName)
 {
 	//Create window
 	gWindow = SDL_CreateWindow(windowName.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, _screenWidth, _screenHeight, SDL_WINDOW_SHOWN);
@@ -87,7 +87,7 @@ bool FGraphics::createMainWindow(const std::string & windowName)
 	return true;
 }
 
-bool FGraphics::storeImage(const std::string & filename, std::unique_ptr<ImageData> imageData)
+bool GraphicsFramework::storeImage(const std::string & filename, std::unique_ptr<ImageData> imageData)
 {
 	// Check that the filename doesn't exist in the dictionary	
 	if ((*_imageDataDict.get())[filename])
@@ -107,7 +107,7 @@ bool FGraphics::storeImage(const std::string & filename, std::unique_ptr<ImageDa
 	return true;
 }
 
-bool FGraphics::renderImage(const std::string & filename)
+bool GraphicsFramework::renderImage(const std::string & filename)
 {
 	// Add to the list of images to render
 	_renderList.push_back(filename);
@@ -123,7 +123,7 @@ bool FGraphics::renderImage(const std::string & filename)
 }
 
 // Find and remove the image from the renderList by the filename.
-bool FGraphics::unrenderImage(const std::string & filename)
+bool GraphicsFramework::unrenderImage(const std::string & filename)
 {
 	auto it = std::find(_renderList.begin(), _renderList.end(), filename);
 	if (it != _renderList.end())
@@ -135,7 +135,7 @@ bool FGraphics::unrenderImage(const std::string & filename)
 	return false;
 }
 
-bool FGraphics::loadImage(const std::string & path)
+bool GraphicsFramework::loadImage(const std::string & path)
 {
 	//Load image at specified path
 	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
@@ -161,7 +161,7 @@ bool FGraphics::loadImage(const std::string & path)
 	return true;
 }
 
-void FGraphics::render()
+void GraphicsFramework::render()
 {
 	//Clear screen
 	SDL_RenderClear(gRenderer);
@@ -203,7 +203,7 @@ void FGraphics::render()
 
 
 
-bool FGraphics::load()
+bool GraphicsFramework::load()
 {
 	//Load image at specified path
 	SDL_Surface* loadedSurface = IMG_Load("Assets/Sprites/preview.png");
@@ -235,7 +235,7 @@ bool FGraphics::load()
 	return true;
 }
 
-bool FGraphics::loadText(std::string inputText)
+bool GraphicsFramework::loadText(std::string inputText)
 {
 	// Load the font
 	gFont = TTF_OpenFont("Assets/Fonts/Roboto-Medium.ttf", 28);
@@ -276,19 +276,19 @@ bool FGraphics::loadText(std::string inputText)
 	return false;
 }
 
-int FGraphics::getTextWidth()
+int GraphicsFramework::getTextWidth()
 {
 	return _textWidth;
 }
 
-int FGraphics::getTextHeight()
+int GraphicsFramework::getTextHeight()
 {
 	return _textHeight;
 }
 
 
 
-void FGraphics::renderText(std::string inputText, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip)
+void GraphicsFramework::renderText(std::string inputText, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip)
 {
 	//Text is not empty
 	if (inputText != "")
@@ -317,12 +317,12 @@ void FGraphics::renderText(std::string inputText, SDL_Rect* clip, double angle, 
 	SDL_RenderCopyEx(gRenderer, gInputTextTexture, clip, &renderQuad, angle, center, flip);
 }
 
-void FGraphics::updateScreen()
+void GraphicsFramework::updateScreen()
 {
 	SDL_RenderPresent(gRenderer);
 }
 
-void FGraphics::unload()
+void GraphicsFramework::unload()
 {
 	//Free loaded image
 	SDL_DestroyTexture(gTexture);
