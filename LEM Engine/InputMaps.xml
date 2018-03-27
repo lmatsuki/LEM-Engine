@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<InputMaps>
+  <Scene Name="Editor">
+    
+  </Scene>
+  <Scene Name="Play">
+    <Mapping Key="Q" EventName="QuitGame" />
+  </Scene>
+</InputMaps>

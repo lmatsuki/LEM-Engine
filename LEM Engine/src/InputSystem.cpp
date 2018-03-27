@@ -38,6 +38,7 @@ void InputSystem::update()
 	{
 		if (event->type == SDL_QUIT)
 		{
+			// To be able to quit the game at any time
 			Message quitMsg(MessageType::QuitGame, "Quitting game.");
 			postMessage(std::make_shared<Message>(quitMsg));
 		}

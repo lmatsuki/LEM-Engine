@@ -36,6 +36,11 @@ void InputFramework::update()
 		{
 			_queuedInputEvents.push_back(std::make_unique<SDL_Event>(e));
 		}
+		else if (e.type == SDL_KEYDOWN)
+		{
+			// TO DO: Normalize inputs if needed
+			// TO DO: Pass the event to the current context
+		}
 	}
 }
 
