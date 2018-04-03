@@ -28,6 +28,7 @@ bool MessageBus::init()
 	addSystem<RenderSystem>(graphicsFramework);
 	addSystem<GUISystem>(graphicsFramework);
 	addSystem<TimedEventSystem>();
+	addSystem<SceneSystem>();
 
 
 

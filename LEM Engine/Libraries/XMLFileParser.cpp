@@ -1,14 +1,20 @@
-#include "IFileParser.h"
+#include "XMLFileParser.h"
 
-//class XMLFileParser : IFileParser
-//{
-//public:
-//	XMLFileParser();
-//	virtual ~XMLFileParser();
-//
-//	template <typename T>
-//	virtual static T loadFile() override;
-//
-//	template <typename T>
-//	virtual static void saveFile(const std::string & filenameWithPath, T & data) override;
-//};
+XMLFileParser::XMLFileParser()
+{
+}
+
+
+XMLFileParser::~XMLFileParser()
+{
+}
+
+std::shared_ptr<IDataContainer> XMLFileParser::loadFile()
+{
+	return std::make_shared<IDataContainer>();
+}
+
+void XMLFileParser::saveFile(const std::string & filenameWithPath, std::shared_ptr<IDataContainer> data)
+{
+
+}

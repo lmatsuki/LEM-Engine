@@ -9,6 +9,7 @@
 #include "RenderSystem.h"
 #include "GUISystem.h"
 #include "TimedEventSystem.h"
+#include "SceneSystem.h"
 
 class Game;
 
