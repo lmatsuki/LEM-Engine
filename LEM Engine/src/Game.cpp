@@ -73,6 +73,12 @@ bool Game::init()
 	StringMessage removeImageMsg(MessageType::RemoveImage, "Removing an image.", "preview4");
 	_messageBus->postMessage(std::make_shared<StringMessage>(removeImageMsg));
 
+	Message loadDataMsg(MessageType::LoadData, "Testing XML Parser data load.");
+	_messageBus->postMessage(std::make_shared<Message>(loadDataMsg));
+
+	Message saveDataMsg(MessageType::SaveData, "Testing XML Parser data save.");
+	_messageBus->postMessage(std::make_shared<Message>(saveDataMsg));
+
 	//ImageMessage imageMsgErroneous(MessageType::LoadImage, "Loading image.",
 	//	"Assets/Sprites/preview.png", "preview", std::make_unique<SDL_Rect>(SDL_Rect{ 0, 0, 300, 300 }), 1);
 	//_messageBus->postMessage(std::make_shared<ImageMessage>(imageMsgErroneous));  // Calling it like this produces error

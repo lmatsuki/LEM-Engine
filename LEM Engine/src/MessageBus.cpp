@@ -20,6 +20,7 @@ bool MessageBus::init()
 	// Create Frameworks that are shared across multiple systems
 	std::shared_ptr<GraphicsFramework> graphicsFramework = addFramework<GraphicsFramework>();
 	std::shared_ptr<InputFramework> inputFramework = addFramework<InputFramework>();
+	std::shared_ptr<XMLParserFramework> xmlParserFramework = addFramework<XMLParserFramework>();
 
 
 	// Add systems to the message bus
@@ -28,7 +29,7 @@ bool MessageBus::init()
 	addSystem<RenderSystem>(graphicsFramework);
 	addSystem<GUISystem>(graphicsFramework);
 	addSystem<TimedEventSystem>();
-	addSystem<SceneSystem>();
+	addSystem<SceneSystem>(xmlParserFramework);
 
 
 

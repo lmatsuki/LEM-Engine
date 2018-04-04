@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Scenes>
-  <Scene Name="Editor"></Scene>
-  <Scene Name="Play"></Scene>
+  <Scene>Editor</Scene>
+  <Scene>Play</Scene>
 </Scenes>

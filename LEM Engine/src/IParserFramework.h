@@ -7,11 +7,11 @@
 /*
 	An abstract class implemented by file parsers.
 */
-class IFileParser
+class IParserFramework
 {
 public:
-	IFileParser();
-	virtual ~IFileParser();
+	IParserFramework();
+	virtual ~IParserFramework();
 	
 	virtual std::shared_ptr<IDataContainer> loadFile() = 0; // TODO: Return an object containing the parsed data
 	virtual void saveFile(const std::string & filenameWithPath, std::shared_ptr<IDataContainer>) = 0; // TODO: Take in the data to save as second argument

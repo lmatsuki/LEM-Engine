@@ -4,6 +4,10 @@ enum class MessageType
 {
 	Console,
 
+	// Scene System
+	LoadData,
+	SaveData,
+
 	// GUI System	
 	LoadBackground,
 	LoadImage,
