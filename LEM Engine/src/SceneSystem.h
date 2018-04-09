@@ -6,7 +6,7 @@
 class SceneSystem : public ISystem
 {
 public:
-	SceneSystem(std::shared_ptr<MessageBus> messageBus, std::shared_ptr<XMLParserFramework> xmlParserFramework);
+	SceneSystem(std::shared_ptr<MessageBus> messageBus, std::shared_ptr<IParserFramework> parserFramework);
 	~SceneSystem();
 
 	virtual const std::string getSystemName() override;
@@ -14,6 +14,7 @@ public:
 	void update() override;
 
 private:
-	std::shared_ptr<XMLParserFramework> _xmlParserFramework;
+	std::shared_ptr<IParserFramework> _parserFramework;
+	//std::stack<std::unique_ptr<GameState>> _states;
 };
 

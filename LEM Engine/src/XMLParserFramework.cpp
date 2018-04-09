@@ -11,13 +11,13 @@ XMLParserFramework::~XMLParserFramework()
 	
 }
 
-std::shared_ptr<IDataContainer> XMLParserFramework::loadFile()
+std::shared_ptr<IDataContainer> XMLParserFramework::loadFile(const std::string & filenameWithPath)
 {
 	// Read the file as a string
 	char saveData[200];
-	std::string filepath = "Assets/Data/Scenes.xml";
-	std::ifstream ifs(filepath);
-	std::string content((std::istreambuf_iterator<char>(ifs)),
+	std::string filepath = filenameWithPath;
+	std::ifstream ifStream(filepath);
+	std::string content((std::istreambuf_iterator<char>(ifStream)),
 		(std::istreambuf_iterator<char>()));
 
 	rapidxml::xml_document<> document;
@@ -26,12 +26,15 @@ std::shared_ptr<IDataContainer> XMLParserFramework::loadFile()
 	// Walk through the DOM tree
 	std::cout << "Name of my first node is: " << document.first_node()->name() << "\n";
 	rapidxml::xml_node<> *node = document.first_node("Scenes");
-	//std::cout << "Node foobar has value " << node->value() << "\n";
-	/*for (rapidxml::xml_attribute<> *attr = node->first_attribute(); attr; attr = attr->next_attribute())*/
-	for (rapidxml::xml_node<> *subnode = node->first_node(); subnode; subnode = subnode->next_sibling())
+	for (rapidxml::xml_node<> *sceneNode = node->first_node(); sceneNode; sceneNode = sceneNode->next_sibling())
 	{
-		std::cout << "Node foobar has attribute " << subnode->name() << " ";
-		std::cout << "with value " << subnode->first_node()->value() << "\n";
+		std::cout << "Scene name: " << sceneNode->first_attribute()->value() << "\n";
+		
+		for (rapidxml::xml_node<> *mapNode = sceneNode->first_node(); mapNode; mapNode = mapNode->next_sibling())
+		{
+			std::cout << "Mapping: " << mapNode->first_attribute()->value() << " - " 
+				<< mapNode->first_attribute()->next_attribute()->value() << "\n";
+		}
 	}
 
 	return std::make_shared<IDataContainer>();

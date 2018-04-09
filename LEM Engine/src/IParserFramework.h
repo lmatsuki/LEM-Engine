@@ -2,17 +2,19 @@
 
 #include <string>
 #include <memory>
+#include "IFramework.h"
 #include "IDataContainer.h"
 
 /*
 	An abstract class implemented by file parsers.
 */
-class IParserFramework
+class IParserFramework : IFramework
 {
 public:
 	IParserFramework();
 	virtual ~IParserFramework();
 	
-	virtual std::shared_ptr<IDataContainer> loadFile() = 0; // TODO: Return an object containing the parsed data
-	virtual void saveFile(const std::string & filenameWithPath, std::shared_ptr<IDataContainer>) = 0; // TODO: Take in the data to save as second argument
+	virtual const std::string & getFrameworkName() override;
+	virtual std::shared_ptr<IDataContainer> loadFile(const std::string & filenameWithPath) = 0;
+	virtual void saveFile(const std::string & filenameWithPath, std::shared_ptr<IDataContainer>) = 0;
 };

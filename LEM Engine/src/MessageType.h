@@ -2,6 +2,7 @@
 
 enum class MessageType
 {
+	InvalidMessage,
 	Console,
 
 	// Scene System
