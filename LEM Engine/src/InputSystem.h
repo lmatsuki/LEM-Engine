@@ -12,6 +12,8 @@ public:
 		std::shared_ptr<IParserFramework> parserFramework, std::shared_ptr<StringToMessageTypeConverter> stringToMessageTypeConverter);
 	~InputSystem();
 
+	void loadInputMaps();
+
 	virtual const std::string getSystemName() override;
 	void handleMessages(const std::shared_ptr<Message> & message) override;
 	void update() override;

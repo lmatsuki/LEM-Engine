@@ -4,13 +4,18 @@ InputSystem::InputSystem(std::shared_ptr<MessageBus> messageBus, std::shared_ptr
 	std::shared_ptr<StringToMessageTypeConverter> stringToMessageTypeConverter)
 	: _inputFramework(inputFramework), _parserFramework(parserFramework), _stringToMessageTypeConverter(stringToMessageTypeConverter), ISystem(messageBus)
 {
-	std::cout << "データロード命令の受信を確認。" << std::endl;
-	_parserFramework.get()->loadFile("Assets/Data/InputMaps.xml");
+	loadInputMaps();
 }
 
 InputSystem::~InputSystem()
 {
 
+}
+
+void InputSystem::loadInputMaps()
+{
+	std::cout << "データロード命令の受信を確認。" << std::endl;
+	_parserFramework.get()->loadFile("Assets/Data/InputMaps.xml");
 }
 
 const std::string InputSystem::getSystemName()
